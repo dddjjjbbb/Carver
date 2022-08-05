@@ -4,7 +4,7 @@ These Python scripts can be used to collect book reviews and metadata from Goodr
 
 We were motivated to develop this Goodreads Scraper because the Goodreads API is difficult to work with and does not provide access to the full text of reviews. The Goodreads Scraper instead uses the web scraping libraries [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup) and [Selenium](https://selenium-python.readthedocs.io/installation.html) to collect data.
 
-We used this Goodreads Scraper to collect data for our article, "The Goodreads ‘Classics’: A Computational Study of Readers, Amazon, and Crowdsourced Literary Criticism." To allow others to reproduce (approximately) the data we used in the essay, we include a file with 144 Goodreads book IDs for the 144 classics that we analyzed (`goodreads_classics.txt`). You can use these IDs to collect corresponding reviews and metadata with the Goodreads Scraper as described below.
+We used this Goodreads Scraper to collect data for our article, ["The Goodreads ‘Classics’: A Computational Study of Readers, Amazon, and Crowdsourced Amateur Criticism."](https://post45.org/2021/04/the-goodreads-classics-a-computational-study-of-readers-amazon-and-crowdsourced-amateur-criticism) To allow others to reproduce (approximately) the data we used in the essay, we include a file with 144 Goodreads book IDs for the 144 classics that we analyzed (`goodreads_classics.txt`). You can use these IDs to collect corresponding reviews and metadata with the Goodreads Scraper as described below.
 
 *Note: Updates to the Goodreads website may break this code. We don't guarantee that the scraper will continue to work in the future, but feel free to post an issue if you run into a problem.*
 
@@ -19,8 +19,12 @@ You will also need the following Python libraries:
 - [Selenium](https://selenium-python.readthedocs.io/installation.html)
 - [lxml](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser)
 - [geckodriver-autoinstaller](https://pypi.org/project/geckodriver-autoinstaller/)
+<<<<<<< HEAD
 - [chromedriver-py](https://pypi.org/project/chromedriver-py/)
 - [requests](https://docs.python-requests.org/en/master/index.html)
+=======
+- [webdriver_manager](https://github.com/SergeyPirogov/webdriver_manager)
+>>>>>>> af94865e031b0b547f6eae6ff5636dfc7659f423
 
 You can install these Python libraries by running `pip install -r requirements.txt`
 
@@ -109,9 +113,11 @@ We also select a filter to only show English language reviews.
 
 ### Usage
 
-`python get_reviews.py --book_ids_path your_file_path --output_directory_path your_directory_path --browser your_browser_name --sort_order your_sort_order  --format JSON (default) or CSV`
+`python get_reviews.py --book_ids_path your_file_path --output_directory_path your_directory_path --browser your_browser_name --sort_order your_sort_order --rating_filter your_rating_filter  --format JSON (default) or CSV`
 
 `sort_order` can be set to `default`,`newest` or `oldest`.
+
+`rating_filter` can be omitted or set to any number in the range 1-5.
 
 `browser` can be set to `chrome` or `firefox`. 
 
@@ -119,7 +125,7 @@ We also select a filter to only show English language reviews.
 
 ### Example
 
-`python get_reviews.py --book_ids_path most_popular_classics.txt --output_directory_path goodreads_project/classic_book_reviews --sort_order default --browser chrome`
+`python get_reviews.py --book_ids_path most_popular_classics.txt --output_directory_path goodreads_project/classic_book_reviews --sort_order default --rating_filter 5 --browser chrome`
 
 <br><br>
 
@@ -182,6 +188,10 @@ This will create a directory called `test-output` in which you'll find the scrap
 This code is written by Maria Antoniak and Melanie Walsh. The code is licensed under a [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/#).
 
 If you use this scraper, we'd love to hear about your project and how you use the code.
+
+If you use this scraper as part of an academic publication, you can credit us by citing the following paper.
+
+Walsh, Melanie, and Maria Antoniak. ["The Goodreads ‘Classics’: A Computational Study of Readers, Amazon, and Crowdsourced Amateur Criticism."](https://maria-antoniak.github.io/resources/2021_ca_classics.pdf) Journal of Cultural Analytics 4 (2021): 243-287.
 
 We used a function written by [Omar Einea](https://github.com/OmarEinea/GoodReadsScraper), licensed under [GPL v3.0](https://github.com/OmarEinea/GoodReadsScraper/blob/master/LICENSE.md), for the Goodreads review sorting.
 

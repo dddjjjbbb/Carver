@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 attrs==21.2.0
 beautifulsoup4==4.9.3
 certifi==2021.5.30
@@ -30,3 +31,14 @@ toml==0.10.2
 typing-extensions==3.10.0.0
 urllib3==1.26.5
 zipp==3.4.1
+=======
+beautifulsoup4
+selenium
+lxml
+geckodriver-autoinstaller
+webdriver_manager
+pandas
+regex
+credentials
+
+>>>>>>> af94865e031b0b547f6eae6ff5636dfc7659f423
