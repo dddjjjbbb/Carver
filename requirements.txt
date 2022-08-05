@@ -1,18 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> bff8c0c8216b4af6b5f5bc73d1480f913ecc2aac
 aiohttp==3.7.4.post0
 alabaster==0.7.12
 appdirs==1.4.4
 astroid==2.8.0
 async-timeout==3.0.1
-<<<<<<< HEAD
->>>>>>> move-to-carver
-=======
->>>>>>> bff8c0c8216b4af6b5f5bc73d1480f913ecc2aac
 attrs==21.2.0
 Automat==20.2.0
 Babel==2.9.1
@@ -119,24 +109,5 @@ wikipedia==1.4.0
 wrapt==1.12.1
 yarl==1.6.3
 zipp==3.4.1
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-beautifulsoup4
-selenium
-lxml
-geckodriver-autoinstaller
-webdriver_manager
-pandas
-regex
-credentials
-
->>>>>>> af94865e031b0b547f6eae6ff5636dfc7659f423
-=======
 zope.event==4.5.0
 zope.interface==5.4.0
->>>>>>> move-to-carver
-=======
-zope.event==4.5.0
-zope.interface==5.4.0
->>>>>>> bff8c0c8216b4af6b5f5bc73d1480f913ecc2aac
