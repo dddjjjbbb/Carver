@@ -1,8 +1,6 @@
-test-output/test-books/*
-test-output/test-reviews/*
+user_io/test_output/*
 geckodriver.log
 .DS_Store
-.coverage
 .pytest_cache
 __pycache__/
 async_results.txt
@@ -11,3 +9,4 @@ input/
 pr_template.md
 venv/
 .idea
+.coverage
