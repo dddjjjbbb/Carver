@@ -26,28 +26,11 @@ You'll also need the following Python libraries:
 
 - [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup)
 - [Selenium](https://selenium-python.readthedocs.io/installation.html)
-<<<<<<< HEAD
-<<<<<<< HEAD
-- [lxml](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser)
-- [geckodriver-autoinstaller](https://pypi.org/project/geckodriver-autoinstaller/)
-<<<<<<< HEAD
-=======
->>>>>>> move-to-carver
-=======
->>>>>>> bff8c0c8216b4af6b5f5bc73d1480f913ecc2aac
 - [chromedriver-py](https://pypi.org/project/chromedriver-py/)
 - [geckodriver-autoinstaller](https://pypi.org/project/geckodriver-autoinstaller/)
 - [lxml](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser)
 - [requests](https://docs.python-requests.org/en/master/index.html)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 - [webdriver_manager](https://github.com/SergeyPirogov/webdriver_manager)
->>>>>>> af94865e031b0b547f6eae6ff5636dfc7659f423
-=======
->>>>>>> move-to-carver
-=======
->>>>>>> bff8c0c8216b4af6b5f5bc73d1480f913ecc2aac
 
 You can do so by running `pip install -r requirements.txt`
 Finally, you'll need a web browser — either Chrome or Firefox. 
@@ -64,6 +47,7 @@ You'll currently find fields related to book/author metadata.
 Under `[BOOK]` or `[AUTHOR]`, mark fields as either `True` or `False` and corresponding limits as desired.
 
 e.g. if you're not interested in exporting the genres to which a book belongs, change `GENRES = True` to `GENRES = False`
+
 # Tests
 Should you wish to extend Carver or simply check everything is working as expected, please follow the instructions below.
 
@@ -72,6 +56,7 @@ Run tests with `pytest --cov-report term-missing --cov=src/` from root.
 You can also functionally test all services by running the follow shell script:
 
 `sh example/shell/test_script.sh`
+
 # Collect Book Metadata
 You can use the below commands to collect metadata about books on Goodreads, 
 such as the total number of Goodreads reviews and ratings, average Goodreads rating, 
