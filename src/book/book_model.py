@@ -15,6 +15,10 @@ class BookModel:
     author_gender: Union[str, None]
     century_of_publication: Union[int, None]
     genres: Union[str, None]
+<<<<<<< HEAD
+=======
+    goodreads_url: Union[str, None]
+>>>>>>> b2ba7b2 (migrate to new machine)
     isbn13: Union[str, None]
     isbn: Union[str, None]
     lists: Union[str, None]

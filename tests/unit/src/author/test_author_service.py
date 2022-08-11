@@ -1,4 +1,5 @@
 import pytest
+<<<<<<< HEAD
 from data.doris_lessing import doris_lessing_sparql_response
 
 from src.author.author_service import AuthorService
@@ -8,6 +9,17 @@ class TestBookService:
     def setup_method(self):
 
         self.author_service = AuthorService(doris_lessing_sparql_response)
+=======
+from .data.doris_lessing import doris_lessing_sparql_response
+
+from src.author.author_service import AuthorParseService
+
+
+class TestAuthorServiceParser:
+    def setup_method(self):
+
+        self.author_service = AuthorParseService(doris_lessing_sparql_response)
+>>>>>>> b2ba7b2 (migrate to new machine)
 
     def test_get_gender(self):
         assert self.author_service.get_gender() == "Female"
@@ -112,4 +124,8 @@ class TestBookService:
         assert self.author_service.get_genres() == ["Science Fiction"]
 
     def test_get_work_period_start_year(self):
+<<<<<<< HEAD
         assert self.author_service.get_work_period_start_year() == "1950"
+=======
+        assert self.author_service.get_work_period_start_year() == 1950
+>>>>>>> b2ba7b2 (migrate to new machine)

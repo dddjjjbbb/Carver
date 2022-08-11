@@ -72,5 +72,17 @@ def aggregate_books(output_directory_path: str) -> [Dict]:
 
     for path in paths:
         f = json.load(open(path))
+<<<<<<< HEAD
         books.append(f)
     return books
+=======
+
+        if f:
+            books.append(f)
+
+            # We should probably write out all those books that return null here.
+
+    return books
+
+
+>>>>>>> b2ba7b2 (migrate to new machine)

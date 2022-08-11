@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 search_query = """
+=======
+sparql_search_query = """
+>>>>>>> b2ba7b2 (migrate to new machine)
 
 SELECT ?item ?itemLabel WHERE {
   ?item wdt:P31 wd:Q5;

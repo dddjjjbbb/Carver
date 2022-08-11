@@ -1,0 +1,30 @@
+{
+    "authorCountryOfCitizenship": null,
+    "authorFirstName": "George",
+    "authorFullName": "George Konrád",
+    "authorGender": null,
+    "authorLastName": "Konrád",
+    "averageRating": 3.71,
+    "centuryOfPublication": 20,
+    "genres": [
+        "Fiction",
+        "Literature",
+        "Roman"
+    ],
+    "goodreadsUrl": "=HYPERLINK(\"https://www.goodreads.com/book/show/1052909.The_Loser\", \"Goodreads URL\")",
+    "isbn": 3518395394,
+    "isbn13": null,
+    "lists": null,
+    "numberOfPages": 320,
+    "numberOfRatings": 90,
+    "numberOfReviews": 6,
+    "numericId": 1052909,
+    "primaryGenre": "Fiction",
+    "ratingDistribution": null,
+    "seriesName": null,
+    "seriesUrl": null,
+    "shelves": null,
+    "title": "The Loser",
+    "titleId": "1052909.The_Loser",
+    "yearOfPublication": 1978
+}

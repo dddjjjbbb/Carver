@@ -148,3 +148,16 @@ class BookService:
     def _get_shelves_url(self) -> str:
         shelves_url = self.soup.find("a", text="See top shelves…")["href"]
         return f"{self.GOODREADS_BASE_URL}{shelves_url}"
+<<<<<<< HEAD
+=======
+
+    @staticmethod
+    @return_none_for_attribute_error
+    def construct_goodreads_url(goodreads_book_id: str) -> str:
+        BASE_URL = "https://www.goodreads.com/book/show/"
+        book_url = f"{BASE_URL}{goodreads_book_id}"
+        libre_hyperlink = f'=HYPERLINK("{book_url}", "Goodreads URL")'
+        return libre_hyperlink
+
+
+>>>>>>> b2ba7b2 (migrate to new machine)

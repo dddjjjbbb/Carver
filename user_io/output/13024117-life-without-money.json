@@ -1,0 +1,32 @@
+{
+    "authorCountryOfCitizenship": null,
+    "authorFirstName": "Anitra",
+    "authorFullName": "Anitra Nelson",
+    "authorGender": null,
+    "authorLastName": "Nelson",
+    "averageRating": 3.74,
+    "centuryOfPublication": null,
+    "genres": [
+        "Economics",
+        "Nonfiction",
+        "Politics",
+        "Biology > Ecology",
+        "Philosophy"
+    ],
+    "goodreadsUrl": "=HYPERLINK(\"https://www.goodreads.com/book/show/13024117-life-without-money\", \"Goodreads URL\")",
+    "isbn": 745333168,
+    "isbn13": null,
+    "lists": null,
+    "numberOfPages": 256,
+    "numberOfRatings": 23,
+    "numberOfReviews": 1,
+    "numericId": 13024117,
+    "primaryGenre": "Economics",
+    "ratingDistribution": null,
+    "seriesName": null,
+    "seriesUrl": null,
+    "shelves": null,
+    "title": "Life Without Money: Building Fair and Sustainable Economies",
+    "titleId": "13024117-life-without-money",
+    "yearOfPublication": null
+}

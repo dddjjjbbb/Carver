@@ -1,0 +1,33 @@
+{
+    "authorCountryOfCitizenship": null,
+    "authorFirstName": "John",
+    "authorFullName": "John Daido Loori",
+    "authorGender": null,
+    "authorLastName": "Loori",
+    "averageRating": 4.16,
+    "centuryOfPublication": 20,
+    "genres": [
+        "Religion > Buddhism",
+        "Buddhism > Zen",
+        "Religion",
+        "Philosophy",
+        "Nonfiction",
+        "Spirituality"
+    ],
+    "goodreadsUrl": "=HYPERLINK(\"https://www.goodreads.com/book/show/14571.The_Eight_Gates_of_Zen\", \"Goodreads URL\")",
+    "isbn": 1882795008,
+    "isbn13": null,
+    "lists": null,
+    "numberOfPages": 304,
+    "numberOfRatings": 275,
+    "numberOfReviews": 17,
+    "numericId": 14571,
+    "primaryGenre": "Religion > Buddhism",
+    "ratingDistribution": null,
+    "seriesName": null,
+    "seriesUrl": null,
+    "shelves": null,
+    "title": "The Eight Gates of Zen: A Program of Zen Training",
+    "titleId": "14571.The_Eight_Gates_of_Zen",
+    "yearOfPublication": 1992
+}
