@@ -2,19 +2,20 @@ import pytest
 
 from src.author.author_service import AuthorService
 
-from .data.doris_lessing import doris_lessing_sparql_response
+from data.doris_lessing import doris_lessing_sparql_response
 
 
 class TestAuthorServiceParser:
+
     def setup_method(self):
         self.author_service = AuthorService(doris_lessing_sparql_response)
 
     def test_get_gender(self):
         assert self.author_service.get_gender() == "Female"
 
-    @pytest.mark.skip(
-        reason="Test result is varying, likely based on order of iteration"
-    )
+    # @pytest.mark.skip(
+    #     reason="Test result is varying, likely based on order of iteration"
+    # )
     def test_get_country_of_citizenship(self):
         assert self.author_service.get_country_of_citizenship() == "United Kingdom"
 

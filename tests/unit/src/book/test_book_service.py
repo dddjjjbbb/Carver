@@ -3,6 +3,8 @@ from data.all_the_pretty_horses import all_the_pretty_horses_soup
 from data.empty import empty_soup
 
 from src.book.book_service import BookService
+from src.book.book_service import GoodReadsBookParser
+from tests.unit.src.book.data.cronopios_and_famas import cronopios_and_famas_soup
 
 
 class TestBookService:
@@ -71,7 +73,12 @@ class TestBookService:
         assert self.book_service_empty.get_year_of_publication() is None
 
     def test_get_author_full_name(self):
-        assert self.book_service.get_author_full_name() == "Cormac McCarthy"
+        goodreads_book_parser = GoodReadsBookParser(all_the_pretty_horses_soup[0])
+        assert goodreads_book_parser.get_author_full_name() == "Cormac McCarthy"
+
+    def test_get_author_full_name_where_multiple_authors_listed(self):
+        goodreads_book_parser = GoodReadsBookParser(cronopios_and_famas_soup[0])
+        assert goodreads_book_parser.get_author_full_name() == "Julio Cortázar"
 
     def test_get_author_full_name_should_return_none_where_soup_find_fails(self):
         assert self.book_service_empty.get_author_full_name() is None
@@ -194,7 +201,4 @@ class TestBookService:
         assert self.book_service_empty._get_shelves_url() is None
 
     def test_get_century_of_publication(self):
-        assert (
-            self.book_service.get_century_of_publication(1992)
-            == 20
-        )
+        assert self.book_service.get_century_of_publication(1992) == 20

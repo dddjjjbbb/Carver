@@ -1,6 +1,5 @@
 from data.all_the_pretty_horses import all_the_pretty_horses_shelves_soup
 from data.empty import empty_soup
-
 from src.shelf.shelf_service import ShelfService
 
 

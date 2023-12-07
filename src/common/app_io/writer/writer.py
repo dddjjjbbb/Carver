@@ -21,7 +21,7 @@ def write_to_txt(path_to_output_directory: str, output_filename: str, book_id: s
 
 def write_to_json(data: Union[Dict, List], _path: str):
     with open(_path, "w") as p:
-        return json.dump(data, p, ensure_ascii=False, sort_keys=True, indent=4)
+        return json.dump(data, p, ensure_ascii=False, sort_keys=False, indent=4)
 
 
 def write_to_csv(path_to_json_containing_all_books: str):

@@ -2,12 +2,12 @@ import codecs
 import json
 import os
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Union, List
 
 from src.common.app_io.reader.exceptions import InputFileIsEmpty
 
 
-def read_file(path_to_input_file: str) -> [str]:
+def read_file(path_to_input_file: str) -> Union[List[str], InputFileIsEmpty, FileNotFoundError]:
     try:
         if _is_file_empty(path_to_input_file):
             raise InputFileIsEmpty(path_to_input_file)
@@ -19,7 +19,7 @@ def read_file(path_to_input_file: str) -> [str]:
         return queries
 
     except FileNotFoundError:
-        raise FileNotFoundError(f"Please check '{path_to_input_file}' is a valid path")
+        raise FileNotFoundError(f"Please check '{path_to_input_file}' is a valid path.")
 
 
 def _is_file_empty(path_to_input_file: str) -> bool:
@@ -72,10 +72,7 @@ def aggregate_books(output_directory_path: str) -> [Dict]:
 
     for path in paths:
         f = json.load(open(path))
-<<<<<<< HEAD
         books.append(f)
-    return books
-=======
 
         if f:
             books.append(f)
@@ -83,6 +80,3 @@ def aggregate_books(output_directory_path: str) -> [Dict]:
             # We should probably write out all those books that return null here.
 
     return books
-
-
->>>>>>> b2ba7b2 (migrate to new machine)

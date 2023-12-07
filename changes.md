@@ -43,11 +43,8 @@ the diversity (or sadly lack thereof) of a data set.
 
 # Additional Ideas
 
-<<<<<<< HEAD
+
 - Write an API.
-- Write a service to calculate diversity percentage of dataset.
-=======
 - Write a service to calculate the diversity percentage of a given data set.
->>>>>>> b2ba7b2 (migrate to new machine)
 - Refactor review service, so it's not dependent on Selenium (Selenium is slow and brittle).
 - Continue to extend tests (this should be a requirement for new code committed).

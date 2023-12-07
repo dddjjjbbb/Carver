@@ -9,7 +9,7 @@ from urllib.error import HTTPError
 import bs4
 import geckodriver_autoinstaller
 import pandas as pd
-import regex as re
+import re
 from chromedriver_py import binary_path
 from selenium import webdriver
 from selenium.common.exceptions import (ElementClickInterceptedException,

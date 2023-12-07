@@ -1,7 +1,8 @@
 from get_ids.models.query_model import QueryModel
 from get_ids.models.result_model import ResultModel
 from get_ids.result.result_match_handler import (_is_input_similar,
-                                         _is_results_equal_to_one, get_match)
+                                                 _is_results_equal_to_one,
+                                                 get_match)
 
 
 class TestResultMatchHandler:

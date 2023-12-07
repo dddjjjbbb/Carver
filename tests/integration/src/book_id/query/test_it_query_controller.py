@@ -24,7 +24,9 @@ class TestQueryController:
             book_title_minus_subtitle_search_url=None,
         )
 
-        assert build_query_model(self.query_with_single_delimiter) == query_model
+        result = build_query_model(self.query_with_single_delimiter)
+
+        assert result == query_model
 
     def test_it_build_query_model_should_return_a_query_model_where_book_title_contains_a_subtitle(
         self,

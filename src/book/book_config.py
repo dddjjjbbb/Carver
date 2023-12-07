@@ -2,30 +2,23 @@ from configparser import ConfigParser
 
 config_object = ConfigParser()
 
-<<<<<<< HEAD
-config_object.read("/home/studs/PycharmProjects/goodreads-scraper/config.ini")
-=======
 config_object.read("/Users/daniel/PycharmProjects/carver/config.ini")
->>>>>>> b2ba7b2 (migrate to new machine)
 
 # BOOK
 
 config_author_first_name = config_object["BOOK"].getboolean("AUTHOR_FIRST_NAME")
 config_author_full_name = config_object["BOOK"].getboolean("AUTHOR_FULL_NAME")
-<<<<<<< HEAD
-=======
 config_author_gender = config_object["BOOK"].getboolean("AUTHOR_GENDER")
->>>>>>> b2ba7b2 (migrate to new machine)
 config_author_last_name = config_object["BOOK"].getboolean("AUTHOR_LAST_NAME")
 config_average_rating = config_object["BOOK"].getboolean("AVERAGE_RATING")
 config_century_of_publication = config_object["BOOK"].getboolean(
     "CENTURY_OF_PUBLICATION"
 )
 config_genres = config_object["BOOK"].getboolean("GENRES")
-<<<<<<< HEAD
-=======
 config_goodreads_url = config_object["BOOK"].getboolean("GOODREADS_URL")
->>>>>>> b2ba7b2 (migrate to new machine)
+config_first_edition_hardback_cost_in_uk = config_object["BOOK"].getboolean("FIRST_EDITION_HARDBACK_COST_IN_UK")
+config_abe_books_search_url = config_object["BOOK"].getboolean("ABE_BOOKS_SEARCH_URL")
+
 config_isbn = config_object["BOOK"].getboolean("ISBN")
 config_isbn13 = config_object["BOOK"].getboolean("ISBN13")
 config_lists = config_object["BOOK"].getboolean("LISTS")

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 search_query = """
-=======
-sparql_search_query = """
->>>>>>> b2ba7b2 (migrate to new machine)
 
 SELECT ?item ?itemLabel WHERE {
   ?item wdt:P31 wd:Q5;
@@ -21,9 +17,7 @@ LIMIT 10
 
 author_details_query = """
 
-SELECT DISTINCT 
-
-    ?item ?itemLabel
+SELECT DISTINCT ?item ?itemLabel 
 
     ?birthFullName ?birthFullNameLabel 
     ?birthFullNameInNativeLanguage ?birthFullNameInNativeLanguageLabel 
@@ -48,12 +42,13 @@ SELECT DISTINCT
     ?workPeriodStart ?workPeriodStartLabel 
     ?writingLanguage ?writingLanguageLabel 
 
-    WHERE {
 
-    VALUES ?item {
 
+
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  VALUES ?item {
     wd:QUERY
-
   }
 
     OPTIONAL { ?item wdt:P1477 ?birthFullName. }
@@ -79,7 +74,9 @@ SELECT DISTINCT
     OPTIONAL { ?item wdt:P2031 ?workPeriodStart. }
     OPTIONAL { ?item wdt:P6886 ?writingLanguage. }
 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
 }
+LIMIT 5
+
 
 """

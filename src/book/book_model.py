@@ -6,31 +6,36 @@ from dataclasses_json.api import LetterCase, dataclass_json
 
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
+class GoodReadsBook:
+    id: str
+
+
+@dataclass_json(letter_case=LetterCase.CAMEL)
+@dataclass
 class BookModel:
-    author_first_name: Union[str, None]
+
+    title: Union[str, None]
     author_full_name: Union[str, None]
-    author_last_name: Union[str, None]
-    author_country_of_citizenship: Union[str, None]
-    average_rating: Union[float, None]
-    author_gender: Union[str, None]
-    century_of_publication: Union[int, None]
-    genres: Union[str, None]
-<<<<<<< HEAD
-=======
-    goodreads_url: Union[str, None]
->>>>>>> b2ba7b2 (migrate to new machine)
-    isbn13: Union[str, None]
     isbn: Union[str, None]
-    lists: Union[str, None]
+    isbn13: Union[str, None]
+    author_last_name: Union[str, None]
+    author_first_name: Union[str, None]
+    year_of_publication: Union[int, None]
+    century_of_publication: Union[int, None]
+    genre: Union[str, None]
     number_of_pages: Union[int, None]
+    average_rating: Union[float, None]
+    goodreads_url: Union[str, None]
+    first_edition_hardback_cost_in_uk: Union[str, None]
+    abe_books_search_url: Union[str, None]
+    author_country_of_citizenship: Union[str, None]
+    author_gender: Union[str, None]
     number_of_ratings: Union[int, None]
     number_of_reviews: Union[int, None]
-    numeric_id: Union[int, None]
-    primary_genre: Union[str, None]
-    rating_distribution: Union[Dict, None]
     series_name: Union[str, None]
     series_url: Union[str, None]
     shelves: Union[Dict, None]
-    title: Union[str, None]
     title_id: Union[str, None]
-    year_of_publication: Union[int, None]
+    lists: Union[str, None]
+    numeric_id: Union[int, None]
+    rating_distribution: Union[Dict, None]

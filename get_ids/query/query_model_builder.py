@@ -22,12 +22,34 @@ def _remove_subtitle_from_book_title(book_title: str) -> str:
     return re.sub(subtitle_pattern, "", book_title)
 
 
+def _split_on_number(query: str):
+    match = re.match(r"([0-9]+)(.+)", query, re.I)
+    if match:
+        items = match.groups()
+        return items
+    return None
+
+def _build_new_format_url(split_query: tuple):
+    prefix = f"{split_query[0]}."
+    suffix = split_query[1].split("-")[1:]
+    return f"{prefix}{'_'.join(suffix)}"
+
+
 def _build_search_url_from_query(query: Union[str, None]) -> Union[str, None]:
     if query is None:
         return None
 
-    base_url = "https://www.goodreads.com/search?q="
-    return f"{base_url}{urllib.parse.quote(query)}"
+    if "." in query:
+
+        base_url = "https://www.goodreads.com/search?q="
+        return f"{base_url}{urllib.parse.quote(query)}"
+
+    else:
+
+        split_query = _split_on_number(query)
+        prefix = _build_new_format_url(split_query)
+        base_url = "https://www.goodreads.com/search?q="
+        return f"{base_url}{urllib.parse.quote(prefix)}"
 
 
 def build_query_model(query: str, delimiter: str) -> QueryModel:

@@ -3,7 +3,8 @@ from typing import Dict
 
 import bs4
 
-from src.common.errors.errors import return_none_for_index_error, return_none_for_type_error
+from src.common.errors.errors import (return_none_for_index_error,
+                                      return_none_for_type_error)
 from src.common.network.network import get
 from src.common.parser.parser import parse
 from src.list.list_config import *
@@ -25,7 +26,7 @@ class ListService:
         """
         lists = []
 
-        response = get([self.lists_url])
+        response = get(self.lists_url)
         soup = parse(response[0])
         paginated_urls = ListService._get_paginated_list_urls(soup, self.lists_url)
 

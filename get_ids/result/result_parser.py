@@ -5,7 +5,7 @@ import bs4
 from bs4 import BeautifulSoup
 
 from get_ids.errors.errors import (return_none_for_attribute_error,
-                           return_none_for_type_error)
+                                   return_none_for_type_error)
 
 
 @return_none_for_attribute_error

@@ -1,12 +1,12 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Union
 
-
 from get_ids.config.config import (author_name_similarity_percentage,
-                           book_title_similarity_percentage,
-                           input_file_delimiter, matches_directory_path,
-                           matches_filename, no_matches_directory_path,
-                           no_matches_filename, path_to_input_file)
+                                   book_title_similarity_percentage,
+                                   input_file_delimiter,
+                                   matches_directory_path, matches_filename,
+                                   no_matches_directory_path,
+                                   no_matches_filename, path_to_input_file)
 from get_ids.models.query_model import QueryModel
 from get_ids.models.result_model import ResultModel
 from get_ids.network.network import get

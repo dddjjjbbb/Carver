@@ -1,0 +1,2 @@
+- handle situation where input does not have second delimiter, e.g When I Die: Lessons from the Death
+- make sure output/matches and output/no_matches are overwritten (otherwise it's not clear which output is from which run)

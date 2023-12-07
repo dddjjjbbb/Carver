@@ -2,8 +2,8 @@ from data.no_result import no_result
 from data.yoshimoto import yoshimoto_soup
 
 from get_ids.result.result_parser import (_clean_author_name, _get_author_name,
-                                  _get_book_href, _get_book_title,
-                                  _get_id_from_href, get_results)
+                                          _get_book_href, _get_book_title,
+                                          _get_id_from_href, get_results)
 
 
 class TestResultParser:
