@@ -62,7 +62,7 @@ class TestBookService:
     def test_get_lists_url(self):
         assert (
             self.goodreads_book_parser.get_lists_url(self.book_id_title)
-            is "https://www.goodreads.com/list/book/469571"
+            == "https://www.goodreads.com/list/book/469571"
         )
 
     def test_get_lists_url_should_return_none_where_soup_find_fails(self):
