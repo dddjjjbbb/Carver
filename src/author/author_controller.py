@@ -4,19 +4,31 @@
 
 import sys
 
-from .author_config import (config_age_at_death, config_birth_full_name,
-                            config_birth_full_name_in_native_language,
-                            config_cause_of_death,
-                            config_country_of_citizenship,
-                            config_date_of_birth, config_date_of_death,
-                            config_educated_at, config_gender, config_genres,
-                            config_last_words, config_lifestyle,
-                            config_literary_movements, config_manner_of_death,
-                            config_native_language, config_notable_works,
-                            config_occupations, config_place_of_birth,
-                            config_place_of_burial, config_place_of_death,
-                            config_religion, config_work_period_start_year,
-                            config_writing_languages)
+from .author_config import (
+    config_age_at_death,
+    config_birth_full_name,
+    config_birth_full_name_in_native_language,
+    config_cause_of_death,
+    config_country_of_citizenship,
+    config_date_of_birth,
+    config_date_of_death,
+    config_educated_at,
+    config_gender,
+    config_genres,
+    config_last_words,
+    config_lifestyle,
+    config_literary_movements,
+    config_manner_of_death,
+    config_native_language,
+    config_notable_works,
+    config_occupations,
+    config_place_of_birth,
+    config_place_of_burial,
+    config_place_of_death,
+    config_religion,
+    config_work_period_start_year,
+    config_writing_languages,
+)
 
 sys.path.append(r"/Users/daniel/PycharmProjects/carver")
 
@@ -25,7 +37,6 @@ from typing import Dict
 from SPARQLWrapper import JSON, SPARQLWrapper
 
 from src.author.author_service import AuthorService
-from src.common.utils.dict_operators import deep_get
 
 from .author_model import AuthorModel
 from .sparql_queries import author_details_query, search_query
@@ -38,6 +49,7 @@ vi1, vi2 = (
 )
 
 USER_AGENT = f"WDQS-example Python/{vi1}.{vi2}"
+
 
 def get_results(query: str) -> [Dict]:
     # TODO adjust user agent; see https://w.wiki/CX6
@@ -55,7 +67,6 @@ def build_author_model(author_name: str) -> AuthorModel:
     # Note: This can return an empty list
     try:
         results = get_results(query)["results"]["bindings"][0]
-        # WE ARE PASSING TYPE <class 'dict'> to deep_get
 
         code = results["item"]["value"].rsplit("/", 1)[-1]
         # Something like Q7368441
