@@ -52,13 +52,25 @@ def return_none_for_assertion_error(func):
             return None
 
     return wrapper
+
+
 def return_none_for_value_error(func):
     @functools.wraps(func)
     def wrapper(*args):
-
         try:
             return func(args[0])
         except ValueError:
+            return None
+
+    return wrapper
+
+
+def return_none_for_assertion_error(func):
+    @functools.wraps(func)
+    def wrapper(*args):
+        try:
+            return func(args[0])
+        except AssertionError:
             return None
 
     return wrapper

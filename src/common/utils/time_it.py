@@ -1,7 +1,6 @@
 # https://zyxue.github.io/2017/09/21/python-timeit-decorator.html
 
 import datetime
-import math
 import time
 from functools import wraps
 from typing import Any, Callable

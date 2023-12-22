@@ -4,16 +4,12 @@ from typing import Dict
 
 import bs4
 
-from src.common.errors.errors import (return_none_for_assertion_error,
-                                      return_none_for_index_error)
 from src.shelf.shelf_config import *
 
 
 class ShelfService:
     def __init__(self, soup: bs4.BeautifulSoup):
-
         self.soup = soup
-        self.GOODREADS_BASE_URL = "https://www.goodreads.com"
 
     def get_shelves(self) -> [Dict]:
         #  The amount of results returned is dependent on `config_number_of_shelf_results`

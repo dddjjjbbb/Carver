@@ -38,7 +38,6 @@ class TestReader:
 
     def test_read_file_should_remove_queries_equal_to_none(self):
         with patch("os.path.getsize", return_value=self.SINGLE_QUERY):
-
             mock = mock_open(read_data=self.multiline_queries_with_none)
             with patch("src.common.app_io.reader.reader.codecs.open", mock):
                 assert read_file(self.mock_path_to_file) == []

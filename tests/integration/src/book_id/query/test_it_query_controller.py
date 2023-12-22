@@ -1,5 +1,3 @@
-import pytest
-
 from src.book_id.query.query_controller import build_query_model
 from src.book_id.query.query_model import QueryModel
 
@@ -14,7 +12,6 @@ class TestQueryController:
     def test_build_query_model_should_return_a_query_model_where_book_title_does_not_contain_a_subtitle(
         self,
     ):
-
         query_model = QueryModel(
             book_title="Kitchen",
             author_name="Banana Yoshimoto",
@@ -25,8 +22,18 @@ class TestQueryController:
         )
 
         result = build_query_model(self.query_with_single_delimiter)
-
-        assert result == query_model
+        assert result.book_title == query_model.book_title
+        assert result.author_name == query_model.author_name
+        assert result.book_title_minus_subtitle == query_model.book_title_minus_subtitle
+        assert (
+            result.book_title_and_author_name_search_url
+            == query_model.book_title_and_author_name_search_url
+        )
+        assert result.book_title_search_url == query_model.book_title_search_url
+        assert (
+            result.book_title_minus_subtitle_search_url
+            == query_model.book_title_minus_subtitle_search_url
+        )
 
     def test_it_build_query_model_should_return_a_query_model_where_book_title_contains_a_subtitle(
         self,
@@ -40,4 +47,16 @@ class TestQueryController:
             book_title_minus_subtitle_search_url="https://www.goodreads.com/search?q=63%2C%20Dream%20Palace",
         )
 
-        assert build_query_model(self.query_with_multiple_delimiters) == query_model
+        result = build_query_model(self.query_with_multiple_delimiters)
+        assert result.book_title == query_model.book_title
+        assert result.author_name == query_model.author_name
+        assert result.book_title_minus_subtitle == query_model.book_title_minus_subtitle
+        assert (
+            result.book_title_and_author_name_search_url
+            == query_model.book_title_and_author_name_search_url
+        )
+        assert result.book_title_search_url == query_model.book_title_search_url
+        assert (
+            result.book_title_minus_subtitle_search_url
+            == query_model.book_title_minus_subtitle_search_url
+        )

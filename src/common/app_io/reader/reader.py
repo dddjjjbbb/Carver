@@ -2,12 +2,14 @@ import codecs
 import json
 import os
 from pathlib import Path
-from typing import Dict, Union, List
+from typing import Dict, List, Union
 
 from src.common.app_io.reader.exceptions import InputFileIsEmpty
 
 
-def read_file(path_to_input_file: str) -> Union[List[str], InputFileIsEmpty, FileNotFoundError]:
+def read_file(
+    path_to_input_file: str,
+) -> Union[List[str], InputFileIsEmpty, FileNotFoundError]:
     try:
         if _is_file_empty(path_to_input_file):
             raise InputFileIsEmpty(path_to_input_file)

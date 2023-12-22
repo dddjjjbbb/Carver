@@ -1,5 +1,3 @@
-import pytest
-
 from src.book_id.query.query_model import QueryModel
 from src.book_id.result.match_service import get_match
 from src.book_id.result.result_model import ResultModel
@@ -7,19 +5,9 @@ from src.book_id.result.result_model import ResultModel
 
 class TestResultMatchService:
     def setup_method(self):
-
         self.kafka_query_model = QueryModel(
             book_title="Amerika",
             author_name="Franz Kafka",
-            book_title_minus_subtitle=None,
-            book_title_and_author_name_search_url="https://www.goodreads.com/search?q=Amerika%20-%20Franz%20Kafka",
-            book_title_search_url="https://www.goodreads.com/search?q=Amerika",
-            book_title_minus_subtitle_search_url=None,
-        )
-
-        self.kafka_query_model_without_author = QueryModel(
-            book_title="Amerika",
-            author_name="",
             book_title_minus_subtitle=None,
             book_title_and_author_name_search_url="https://www.goodreads.com/search?q=Amerika%20-%20Franz%20Kafka",
             book_title_search_url="https://www.goodreads.com/search?q=Amerika",

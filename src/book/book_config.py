@@ -2,7 +2,7 @@ from configparser import ConfigParser
 
 config_object = ConfigParser()
 
-config_object.read("/Users/daniel/PycharmProjects/carver/config.ini")
+config_object.read("config.ini")
 
 # BOOK
 
@@ -16,7 +16,9 @@ config_century_of_publication = config_object["BOOK"].getboolean(
 )
 config_genres = config_object["BOOK"].getboolean("GENRES")
 config_goodreads_url = config_object["BOOK"].getboolean("GOODREADS_URL")
-config_first_edition_hardback_cost_in_uk = config_object["BOOK"].getboolean("FIRST_EDITION_HARDBACK_COST_IN_UK")
+config_first_edition_hardback_cost_in_uk = config_object["BOOK"].getboolean(
+    "FIRST_EDITION_HARDBACK_COST_IN_UK"
+)
 config_abe_books_search_url = config_object["BOOK"].getboolean("ABE_BOOKS_SEARCH_URL")
 
 config_isbn = config_object["BOOK"].getboolean("ISBN")

@@ -26,14 +26,12 @@ def get_match(
     book_title_similarity_percentage: float,
     author_name_similarity_percentage: float,
 ) -> [ResultModel, None]:
-
     if result_models:
         result_models = result_models[:]
 
         try:
             while len(result_models) != 0:
                 for result_model in result_models:
-
                     book_title_match = _is_input_similar(
                         query_model.book_title,
                         result_model.book_title,

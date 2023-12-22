@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import re
 import time
 from collections import Counter
 from datetime import datetime
@@ -9,7 +10,6 @@ from urllib.error import HTTPError
 import bs4
 import geckodriver_autoinstaller
 import pandas as pd
-import re
 from chromedriver_py import binary_path
 from selenium import webdriver
 from selenium.common.exceptions import (ElementClickInterceptedException,
@@ -76,7 +76,6 @@ def get_date(node):
 
 
 def get_text(node):
-
     display_text = ""
     full_text = ""
 
@@ -123,7 +122,6 @@ def get_id(bookid):
 
 
 def scrape_reviews_on_current_page(driver, url, book_id, sort_order):
-
     reviews = []
 
     # Pull the page source, load into BeautifulSoup, and find all review nodes.
@@ -165,7 +163,6 @@ def check_for_duplicates(reviews):
 
 
 def get_reviews_first_ten_pages(driver, book_id, sort_order):
-
     reviews = []
     url = "https://www.goodreads.com/book/show/" + book_id
     driver.get(url)
@@ -287,7 +284,6 @@ def condense_reviews(reviews_directory_path):
 
 
 def run():
-
     start_time = datetime.now()
     script_name = os.path.basename(__file__)
 
@@ -334,7 +330,6 @@ def run():
 
     for i, book_id in enumerate(books_to_scrape):
         try:
-
             print(
                 str(datetime.now())
                 + " "

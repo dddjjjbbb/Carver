@@ -12,7 +12,6 @@ def build_result_models(results: [bs4.element.ResultSet]) -> [ResultModel]:
     result_models = []
 
     for result in results:
-
         result_service = ResultService(result)
 
         author_name = result_service._get_author_name(result)

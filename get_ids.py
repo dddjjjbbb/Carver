@@ -47,7 +47,6 @@ def match_handler(query_model: QueryModel) -> Union[ResultModel, QueryModel]:
 
 
 if __name__ == "__main__":
-
     queries = read_file(path_to_input_file=path_to_input_file)
     query_models = [build_query_model(query, input_file_delimiter) for query in queries]
 
@@ -58,7 +57,6 @@ if __name__ == "__main__":
         for future in as_completed(futures):
             result = future.result()
             if isinstance(result, ResultModel):
-                print(result.book_id)
                 write_to_file(
                     path_to_output_directory=matches_directory_path,
                     output_filename=matches_filename,

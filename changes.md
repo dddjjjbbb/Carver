@@ -9,7 +9,7 @@ The changes made relate to 3 main areas; maintainability, speed and additional f
 - Type annotation introduced throughout codebase.
 - A move toward common layers, i.e. multi-tier architecture.
 - Improved error handling with decorators.
-- Full test suite writen for legacy code and all new code. (Currently at 75%)
+- Full test suite writen for legacy code and all new code.
 - Common code refactored to avoid duplication.
 
 ## Speed
@@ -42,7 +42,6 @@ the diversity (or sadly lack thereof) of a data set.
 - The review service is yet to be refactored.
 
 # Additional Ideas
-
 
 - Write an API.
 - Write a service to calculate the diversity percentage of a given data set.

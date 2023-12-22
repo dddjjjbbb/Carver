@@ -3,47 +3,32 @@
 # TODO check strange results for `Mikhail Lermontov`
 
 import sys
-from pprint import pprint
 
-
-from .author_config import config_age_at_death
-from .author_config import config_birth_full_name
-from .author_config import config_birth_full_name_in_native_language
-from .author_config import config_cause_of_death
-from .author_config import config_country_of_citizenship
-from .author_config import config_date_of_birth
-from .author_config import config_date_of_death
-from .author_config import config_educated_at
-from .author_config import config_gender
-from .author_config import config_genres
-from .author_config import config_last_words
-from .author_config import config_lifestyle
-from .author_config import config_literary_movements
-from .author_config import config_manner_of_death
-from .author_config import config_native_language
-from .author_config import config_notable_works
-from .author_config import config_occupations
-from .author_config import config_place_of_birth
-from .author_config import config_place_of_burial
-from .author_config import config_place_of_death
-from .author_config import config_religion
-from .author_config import config_work_period_start_year
-from .author_config import config_writing_languages
+from .author_config import (config_age_at_death, config_birth_full_name,
+                            config_birth_full_name_in_native_language,
+                            config_cause_of_death,
+                            config_country_of_citizenship,
+                            config_date_of_birth, config_date_of_death,
+                            config_educated_at, config_gender, config_genres,
+                            config_last_words, config_lifestyle,
+                            config_literary_movements, config_manner_of_death,
+                            config_native_language, config_notable_works,
+                            config_occupations, config_place_of_birth,
+                            config_place_of_burial, config_place_of_death,
+                            config_religion, config_work_period_start_year,
+                            config_writing_languages)
 
 sys.path.append(r"/Users/daniel/PycharmProjects/carver")
 
-from src.author.author_service import AuthorService
-
-
 from typing import Dict
 
-from SPARQLWrapper import JSON
-from SPARQLWrapper import SPARQLWrapper
+from SPARQLWrapper import JSON, SPARQLWrapper
+
+from src.author.author_service import AuthorService
+from src.common.utils.dict_operators import deep_get
 
 from .author_model import AuthorModel
-from .sparql_queries import author_details_query
-from .sparql_queries import search_query
-from src.common.utils.dict_operators import deep_get
+from .sparql_queries import author_details_query, search_query
 
 ENDPOINT_URL = "https://query.wikidata.org/sparql"
 
@@ -54,29 +39,26 @@ vi1, vi2 = (
 
 USER_AGENT = f"WDQS-example Python/{vi1}.{vi2}"
 
-
-def insert_into_sparql_query(query: str) -> str:
-    return search_query.replace("QUERY", query)
-
-
 def get_results(query: str) -> [Dict]:
     # TODO adjust user agent; see https://w.wiki/CX6
     sparql = SPARQLWrapper(ENDPOINT_URL, agent=USER_AGENT)
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    return sparql.query().convert()
+    result = sparql.query().convert()
+    return result
 
 
 # @return_none_for_index_error
 def build_author_model(author_name: str) -> AuthorModel:
-
     query = search_query.replace("QUERY", author_name)
 
     # Note: This can return an empty list
     try:
         results = get_results(query)["results"]["bindings"][0]
+        # WE ARE PASSING TYPE <class 'dict'> to deep_get
 
-        code = deep_get(results, "item.value").rsplit("/", 1)[-1]
+        code = results["item"]["value"].rsplit("/", 1)[-1]
+        # Something like Q7368441
 
         author_query = author_details_query.replace("QUERY", code)
 
@@ -114,8 +96,10 @@ def build_author_model(author_name: str) -> AuthorModel:
             if config_educated_at is True
             else None,
             gender=author_service.get_gender() if config_gender is True else None,
-            genres=author_service.get_genres() if config_genres is True else None,
-            lifestyle=author_service.get_lifestyle() if config_lifestyle is True else None,
+            genres=author_service.get_genre() if config_genres is True else None,
+            lifestyle=author_service.get_lifestyle()
+            if config_lifestyle is True
+            else None,
             literary_movements=author_service.get_literary_movements()
             if config_literary_movements is True
             else None,
@@ -125,10 +109,10 @@ def build_author_model(author_name: str) -> AuthorModel:
             native_language=author_service.get_native_language()
             if config_native_language is True
             else None,
-            notable_works=author_service.get_notable_works()
+            notable_works=author_service.get_notable_work()
             if config_notable_works is True
             else None,
-            occupations=author_service.get_occupations()
+            occupations=author_service.get_occupation()
             if config_occupations is True
             else None,
             place_of_birth=author_service.get_place_of_birth()
@@ -154,19 +138,4 @@ def build_author_model(author_name: str) -> AuthorModel:
 
         return author_model
     except IndexError:
-        return ''
-
-
-def split_wikidata_uri_value_on_identifier(wikidata_uri_value) -> str:
-    return wikidata_uri_value.rsplit("/", 1)[-1]
-
-
-def get_wikidata_code_for_author(sparql_result: Dict) -> str:
-    wikidata_uri_value = deep_get(sparql_result, "item.value")
-    return split_wikidata_uri_value_on_identifier(wikidata_uri_value)
-
-
-def generate_author_details(wikidata_code_for_author: str) -> Dict:
-    author_query = insert_into_sparql_query(wikidata_code_for_author)
-    author_details = get_results(author_query)
-    return author_details
+        return ""

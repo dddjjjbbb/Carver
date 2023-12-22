@@ -7,7 +7,6 @@ and it creates the necessary dependencies and executes the use case.
 
 import argparse
 import logging
-import pprint
 
 from src.book.book_controller import build_book_model
 from src.book.book_model import GoodReadsBook
@@ -23,7 +22,6 @@ logging.basicConfig(
 
 
 def main():
-
     parser = argparse.ArgumentParser()
 
     # BOOK
@@ -61,7 +59,6 @@ def main():
                 path = f"{args.output_directory_path}/{book_id}.json"
 
                 if book_model.get("authorFullName") is None:
-                    pass
                     print(f"Skipping: {book_id} Author is None")
                 else:
                     write_to_json(book_model, path)
@@ -81,9 +78,7 @@ def main():
         books_already_scraped = get_books_already_scraped(args.output_directory_path)
         book_ids_to_scrape = get_books_to_scrape(ids, books_already_scraped)
         for book_id in book_ids_to_scrape:
-
             try:
-
                 book_model = build_book_model(book_id)
                 path = f"{args.output_directory_path}/{book_id}.json"
                 write_to_json(book_model, path)

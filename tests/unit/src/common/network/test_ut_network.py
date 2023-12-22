@@ -1,13 +1,3 @@
-from typing import Generator
-
-import pytest
-import requests
-import responses
-from aiohttp.client_exceptions import ClientConnectionError
-from requests.models import Response
-
-from src.common.network.network import get
-
 # TODO: We need to figure out how to mock aiohttp
 
 # class TestNetwork:

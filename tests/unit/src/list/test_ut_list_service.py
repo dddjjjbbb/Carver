@@ -1,7 +1,7 @@
-from data.all_the_pretty_horses import all_the_pretty_horses_lists_soup
-from data.empty import empty_soup
-
 from src.list.list_service import ListService
+from tests.integration.src.shelf.data.empty import empty_soup
+from tests.unit.src.list.data.all_the_pretty_horses import \
+    all_the_pretty_horses_lists_soup
 
 
 class TestListService:

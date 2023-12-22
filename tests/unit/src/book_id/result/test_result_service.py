@@ -6,7 +6,6 @@ from src.book_id.result.result_service import ResultService
 
 class TestResultService:
     def setup_method(self):
-
         self.result_service = ResultService(yoshimoto_soup)
         self.result_service_empty = ResultService(no_result)
 

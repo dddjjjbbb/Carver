@@ -5,7 +5,6 @@ from src.book_id.query.query_service import QueryService
 
 class TestQueryService:
     def setup_method(self):
-
         self.query_with_single_delimiter = "Kitchen - Banana Yoshimoto"
         self.query_with_multiple_delimiters = (
             "63, Dream Palace: Selected Stories, 1956-1987 - James Purdy"
@@ -54,7 +53,6 @@ class TestQueryService:
     def test_split_on_last_delimiter_should_return_book_title_and_author_where_the_delimiter_appears_twice(
         self, query, expected
     ):
-
         query_service = QueryService(query)
 
         assert query_service._split_on_last_delimiter() == expected
@@ -74,7 +72,6 @@ class TestQueryService:
     def test_is_subtitle_in_book_title_should_return_true_where_a_semi_colon_subtitle_is_in_the_book_title(
         self,
     ):
-
         query_service = QueryService(self.book_title_with_semi_colon_subtitle)
 
         assert (
@@ -99,7 +96,6 @@ class TestQueryService:
     def test_is_subtitle_in_book_title_should_return_false_where_no_subtitle_is_in_the_book_title(
         self,
     ):
-
         query_service = QueryService(self.book_title_without_subtitle)
 
         assert (
@@ -110,7 +106,6 @@ class TestQueryService:
     def test_is_subtitle_in_book_title_should_return_false_where_book_title_is_a_false_positive(
         self,
     ):
-
         query_service = QueryService(
             self.book_title_with_parenthesis_subtitle_false_positive
         )
@@ -125,7 +120,6 @@ class TestQueryService:
     def test_remove_subtitle_from_book_title_should_remove_a_colon_subtitle_if_in_the_book_title(
         self,
     ):
-
         query_service = QueryService(self.book_title_with_colon_subtitle)
 
         assert (
@@ -138,7 +132,6 @@ class TestQueryService:
     def test_remove_subtitle_from_book_title_should_remove_a_semi_colon_subtitle_if_in_the_book_title(
         self,
     ):
-
         query_service = QueryService(self.book_title_with_semi_colon_subtitle)
 
         assert (

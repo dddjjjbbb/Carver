@@ -11,7 +11,6 @@ from src.common.errors.errors import (return_none_for_assertion_error,
 
 class ResultService:
     def __init__(self, soup: Union[BeautifulSoup, None]):
-
         self.soup = soup
 
     @return_none_for_assertion_error

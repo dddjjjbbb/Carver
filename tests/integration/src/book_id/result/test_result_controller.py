@@ -8,7 +8,6 @@ from src.book_id.result.result_service import ResultService
 
 class TestResultController:
     def setup_method(self):
-
         self.result_service = ResultService(yoshimoto_soup)
         self.results = self.result_service.get_results()
 

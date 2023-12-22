@@ -12,18 +12,12 @@ from src.list.list_config import *
 
 class ListService:
     def __init__(self, soup: bs4.BeautifulSoup, lists_url: str):
-
         self.soup = soup
         self.lists_url = lists_url
-        self.GOODREADS_BASE_URL = "https://www.goodreads.com"
 
     @return_none_for_type_error
     def get_lists(self) -> [Dict]:
         # TODO: This method needs an integration test!
-        """
-        Initial baseline was 33 secs, now down to 16
-        As of introducing async we're down to 5 seconds
-        """
         lists = []
 
         response = get(self.lists_url)

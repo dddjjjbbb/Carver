@@ -3,7 +3,7 @@ from configparser import ConfigParser
 config_object = ConfigParser()
 
 
-config_object.read("/Users/daniel/PycharmProjects/carver/config.ini")
+config_object.read("config.ini")
 
 # LIST
 
