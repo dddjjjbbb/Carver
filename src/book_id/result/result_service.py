@@ -4,9 +4,11 @@ from typing import Union
 import bs4
 from bs4 import BeautifulSoup
 
-from src.common.errors.errors import (return_none_for_assertion_error,
-                                      return_none_for_attribute_error,
-                                      return_none_for_type_error)
+from src.common.errors.errors import (
+    return_none_for_assertion_error,
+    return_none_for_attribute_error,
+    return_none_for_type_error,
+)
 
 
 class ResultService:
@@ -26,11 +28,7 @@ class ResultService:
     @staticmethod
     @return_none_for_attribute_error
     def _get_author_name(results: [bs4.element.ResultSet, None]) -> Union[str, None]:
-        return (
-            results.find("div", {"class": "authorName__container"})
-            .text.strip()
-            .rstrip(",")
-        )
+        return results.find("div", {"class": "authorName__container"}).text.strip().rstrip(",")
 
     @staticmethod
     @return_none_for_type_error

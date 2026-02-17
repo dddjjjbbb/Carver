@@ -22,9 +22,5 @@ config_no_matches_filename = config_object["OUTPUT"]["NO_MATCHES_FILENAME"]
 
 # MATCH_PERCENTAGES
 
-config_book_title_similarity_percentage = float(
-    config_object["MATCH_PERCENTAGES"]["BOOK_TITLE_SIMILARITY_PERCENTAGE"]
-)
-config_author_name_similarity_percentage = float(
-    config_object["MATCH_PERCENTAGES"]["AUTHOR_NAME_SIMILARITY_PERCENTAGE"]
-)
+config_book_title_similarity_percentage = float(config_object["MATCH_PERCENTAGES"]["BOOK_TITLE_SIMILARITY_PERCENTAGE"])
+config_author_name_similarity_percentage = float(config_object["MATCH_PERCENTAGES"]["AUTHOR_NAME_SIMILARITY_PERCENTAGE"])

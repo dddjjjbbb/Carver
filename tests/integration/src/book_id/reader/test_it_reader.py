@@ -12,7 +12,9 @@ class TestReader:
         self.SINGLE_QUERY = 3  # Corresponds to shortest imaginable query `a-a`.
         self.MULTIPLE_QUERIES = 50000  # Corresponds to a file containing 1000 queries.
         self.multiline_queries_with_none = None
-        self.multiline_queries_without_none = "The Catcher in the Rye - J.D Salinger\nEternal Curse on the Reader of These Pages - Manual Puig\n"
+        self.multiline_queries_without_none = (
+            "The Catcher in the Rye - J.D Salinger\nEternal Curse on the Reader of These Pages - Manual Puig\n"
+        )
 
     def test_read_file_should_raise_input_file_is_empty_exception_where_file_is_empty(
         self,

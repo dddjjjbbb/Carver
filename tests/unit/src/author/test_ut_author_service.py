@@ -11,16 +11,10 @@ class TestAuthorServiceParser:
         assert self.author_service.get_gender() == "Female"
 
     def test_get_country_of_citizenship(self):
-        assert (
-            self.author_service.get_country_of_citizenship()
-            == "Kingdom of Great Britain"
-        )
+        assert self.author_service.get_country_of_citizenship() == "Kingdom of Great Britain"
 
     def test_get_birth_full_name_in_native_language(self):
-        assert (
-            self.author_service.get_birth_full_name_in_native_language()
-            == "Jane Austen"
-        )
+        assert self.author_service.get_birth_full_name_in_native_language() == "Jane Austen"
 
     def test_get_birth_full_name(self):
         assert self.author_service.get_birth_full_name() == "Jane Austen"
@@ -46,10 +40,7 @@ class TestAuthorServiceParser:
     def test_calculate_age_at_death(self):
         date_of_death = "2013-11-17"
         date_of_birth = "1919-10-22"
-        assert (
-            self.author_service._calculate_age_at_death(date_of_death, date_of_birth)
-            == 94
-        )
+        assert self.author_service._calculate_age_at_death(date_of_death, date_of_birth) == 94
 
     def test_get_age_at_death(self):
         assert self.author_service.get_age_at_death() is None

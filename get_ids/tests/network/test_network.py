@@ -28,9 +28,7 @@ class TestNetwork:
         "status_code, expected",
         [(404, None), (403, None), (500, None), (503, None), (504, None)],
     )
-    def test_ut_get_should_return_none_where_response_is_not_equal_to_200(
-        self, status_code, expected
-    ):
+    def test_ut_get_should_return_none_where_response_is_not_equal_to_200(self, status_code, expected):
         responses.add(responses.GET, self.url, status=status_code)
         resp = get(self.url)
         assert resp == expected

@@ -1,6 +1,5 @@
 from src.book_id.query.query_model import QueryModel
-from src.book_id.result.match_service import (_is_input_similar,
-                                              _is_results_equal_to_one)
+from src.book_id.result.match_service import _is_input_similar, _is_results_equal_to_one
 from src.book_id.result.result_model import ResultModel
 
 
@@ -34,14 +33,10 @@ class TestResultMatchHandler:
                 author_name="Daniel Rothenbühler",
                 book_id="24105853-der-verschollene-amerika-von-franz-kafka",
             ),
-            ResultModel(
-                book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"
-            ),
+            ResultModel(book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"),
         ]
 
-        self.kafka_result_match = ResultModel(
-            book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"
-        )
+        self.kafka_result_match = ResultModel(book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika")
 
         self.empty_list = []
 
@@ -64,12 +59,7 @@ class TestResultMatchHandler:
     def test_is_input_similar_returns_true_where_similarity_percentage_is_set_to_a_low_level_of_permissiveness(
         self,
     ):
-        assert (
-            _is_input_similar(
-                "The Complete Plays", "The Complete Plays: Sophocles", 0.75
-            )
-            is True
-        )
+        assert _is_input_similar("The Complete Plays", "The Complete Plays: Sophocles", 0.75) is True
 
     def test_is_input_similar_returns_true_where_similarity_percentage_is_set_to_a_high_level_of_permissiveness(
         self,

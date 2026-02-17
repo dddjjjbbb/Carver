@@ -13,9 +13,7 @@ def _is_directory_created(path_to_output_directory: str) -> bool:
 
 
 def write_to_txt(path_to_output_directory: str, output_filename: str, book_id: str):
-    with codecs.open(
-        f"{path_to_output_directory}/{output_filename}.txt", "a", encoding="UTF-8"
-    ) as SOURCE:
+    with codecs.open(f"{path_to_output_directory}/{output_filename}.txt", "a", encoding="UTF-8") as SOURCE:
         return SOURCE.write(f"{book_id}\n")
 
 
@@ -26,9 +24,7 @@ def write_to_json(data: Union[Dict, List], _path: str):
 
 def write_to_csv(path_to_json_containing_all_books: str):
     book_df = pd.read_json(path_to_json_containing_all_books)
-    return book_df.to_csv(
-        f"{path_to_json_containing_all_books}.csv", index=False, encoding="utf-8"
-    )
+    return book_df.to_csv(f"{path_to_json_containing_all_books}.csv", index=False, encoding="utf-8")
 
 
 def create_export_file(args):

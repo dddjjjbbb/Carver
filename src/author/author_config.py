@@ -8,13 +8,9 @@ config_object.read("config.ini")
 
 config_age_at_death = config_object["AUTHOR"].getboolean("AGE_AT_DEATH")
 config_birth_full_name = config_object["AUTHOR"].getboolean("BIRTH_FULL_NAME")
-config_birth_full_name_in_native_language = config_object["AUTHOR"].getboolean(
-    "BIRTH_FULL_NAME_IN_NATIVE_LANGUAGE"
-)
+config_birth_full_name_in_native_language = config_object["AUTHOR"].getboolean("BIRTH_FULL_NAME_IN_NATIVE_LANGUAGE")
 config_cause_of_death = config_object["AUTHOR"].getboolean("CAUSE_OF_DEATH")
-config_country_of_citizenship = config_object["AUTHOR"].getboolean(
-    "COUNTRY_OF_CITIZENSHIP"
-)
+config_country_of_citizenship = config_object["AUTHOR"].getboolean("COUNTRY_OF_CITIZENSHIP")
 config_date_of_birth = config_object["AUTHOR"].getboolean("DATE_OF_BIRTH")
 config_date_of_death = config_object["AUTHOR"].getboolean("DATE_OF_DEATH")
 config_educated_at = config_object["AUTHOR"].getboolean("EDUCATED_AT")
@@ -31,7 +27,5 @@ config_place_of_birth = config_object["AUTHOR"].getboolean("PLACE_OF_BIRTH")
 config_place_of_burial = config_object["AUTHOR"].getboolean("PLACE_OF_BURIAL")
 config_place_of_death = config_object["AUTHOR"].getboolean("PLACE_OF_DEATH")
 config_religion = config_object["AUTHOR"].getboolean("RELIGION")
-config_work_period_start_year = config_object["AUTHOR"].getboolean(
-    "WORK_PERIOD_START_YEAR"
-)
+config_work_period_start_year = config_object["AUTHOR"].getboolean("WORK_PERIOD_START_YEAR")
 config_writing_languages = config_object["AUTHOR"].getboolean("WRITING_LANGUAGES")

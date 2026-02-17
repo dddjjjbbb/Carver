@@ -2,22 +2,23 @@ import pytest
 
 from get_ids.models.query_model import QueryModel
 from get_ids.query.query_model_builder import (
-    _build_search_url_from_query, _is_subtitle_in_book_title,
-    _remove_subtitle_from_book_title, _split_on_last_delimiter,
-    build_query_model)
+    _build_search_url_from_query,
+    _is_subtitle_in_book_title,
+    _remove_subtitle_from_book_title,
+    _split_on_last_delimiter,
+    build_query_model,
+)
 
 
 class TestQueryModelBuilder:
     def setup_method(self):
         self.query_with_single_delimiter = "Kitchen - Banana Yoshimoto"
-        self.query_with_multiple_delimiters = (
-            "63, Dream Palace: Selected Stories, 1956-1987 - James Purdy"
-        )
+        self.query_with_multiple_delimiters = "63, Dream Palace: Selected Stories, 1956-1987 - James Purdy"
         self.delimiter = " - "
-        self.book_title_with_colon_subtitle = (
-            "An Individual Note: Of Music, Sound And Electronics"
+        self.book_title_with_colon_subtitle = "An Individual Note: Of Music, Sound And Electronics"
+        self.book_title_with_semi_colon_subtitle = (
+            "The Diary of a Madman and Other Stories: The Nose; The Carriage; The Overcoat; Taras Bulba"
         )
-        self.book_title_with_semi_colon_subtitle = "The Diary of a Madman and Other Stories: The Nose; The Carriage; The Overcoat; Taras Bulba"
         self.book_title_with_parenthesis_subtitle = "Palace Walk (The Cairo Trilogy #1)"
         self.book_title_with_parenthesis_subtitle_false_positive = "H(A)PPY"
         self.book_title_without_subtitle = "My Year of Rest and Relaxation"
@@ -25,9 +26,7 @@ class TestQueryModelBuilder:
     def test_ut_split_on_last_delimiter_should_return_book_title_and_author_where_the_delimiter_appears_once(
         self,
     ):
-        assert _split_on_last_delimiter(
-            self.query_with_single_delimiter, self.delimiter
-        ) == ["Kitchen", "Banana Yoshimoto"]
+        assert _split_on_last_delimiter(self.query_with_single_delimiter, self.delimiter) == ["Kitchen", "Banana Yoshimoto"]
 
     @pytest.mark.parametrize(
         "query, expected",
@@ -65,17 +64,12 @@ class TestQueryModelBuilder:
     def test_ut_is_subtitle_in_book_title_should_return_true_where_a_semi_colon_subtitle_is_in_the_book_title(
         self,
     ):
-        assert (
-            _is_subtitle_in_book_title(self.book_title_with_semi_colon_subtitle) is True
-        )
+        assert _is_subtitle_in_book_title(self.book_title_with_semi_colon_subtitle) is True
 
     def test_ut_is_subtitle_in_book_title_should_return_true_where_a_parenthesis_subtitle_is_in_the_book_title(
         self,
     ):
-        assert (
-            _is_subtitle_in_book_title(self.book_title_with_parenthesis_subtitle)
-            is True
-        )
+        assert _is_subtitle_in_book_title(self.book_title_with_parenthesis_subtitle) is True
 
     def test_ut_is_subtitle_in_book_title_should_return_false_where_no_subtitle_is_in_the_book_title(
         self,
@@ -85,20 +79,12 @@ class TestQueryModelBuilder:
     def test_ut_is_subtitle_in_book_title_should_return_false_where_book_title_is_a_false_positive(
         self,
     ):
-        assert (
-            _is_subtitle_in_book_title(
-                self.book_title_with_parenthesis_subtitle_false_positive
-            )
-            is False
-        )
+        assert _is_subtitle_in_book_title(self.book_title_with_parenthesis_subtitle_false_positive) is False
 
     def test_ut_remove_subtitle_from_book_title_should_remove_a_colon_subtitle_if_in_the_book_title(
         self,
     ):
-        assert (
-            _remove_subtitle_from_book_title(self.book_title_with_colon_subtitle)
-            == "An Individual Note"
-        )
+        assert _remove_subtitle_from_book_title(self.book_title_with_colon_subtitle) == "An Individual Note"
 
     def test_ut_remove_subtitle_from_book_title_should_remove_a_semi_colon_subtitle_if_in_the_book_title(
         self,
@@ -111,21 +97,13 @@ class TestQueryModelBuilder:
     def test_ut_remove_subtitle_from_book_title_should_remove_a_parenthesis_subtitle_if_in_the_book_title(
         self,
     ):
-        assert (
-            _remove_subtitle_from_book_title(self.book_title_with_parenthesis_subtitle)
-            == "Palace Walk"
-        )
+        assert _remove_subtitle_from_book_title(self.book_title_with_parenthesis_subtitle) == "Palace Walk"
 
     def test_it_build_search_url_from_query_should_return_encoded_query_where_query_is_not_none(
         self,
     ):
         result = "https://www.goodreads.com/search?q=H%28A%29PPY"
-        assert (
-            _build_search_url_from_query(
-                self.book_title_with_parenthesis_subtitle_false_positive
-            )
-            == result
-        )
+        assert _build_search_url_from_query(self.book_title_with_parenthesis_subtitle_false_positive) == result
 
     def test_it_build_search_url_from_query_should_not_return_encoded_query_where_query_is_none(
         self,
@@ -144,10 +122,7 @@ class TestQueryModelBuilder:
             book_title_minus_subtitle_search_url=None,
         )
 
-        assert (
-            build_query_model(self.query_with_single_delimiter, self.delimiter)
-            == query_model
-        )
+        assert build_query_model(self.query_with_single_delimiter, self.delimiter) == query_model
 
     def test_it_build_query_model_should_return_a_query_model_where_book_title_contains_a_subtitle(
         self,
@@ -161,7 +136,4 @@ class TestQueryModelBuilder:
             book_title_minus_subtitle_search_url="https://www.goodreads.com/search?q=63%2C%20Dream%20Palace",
         )
 
-        assert (
-            build_query_model(self.query_with_multiple_delimiters, self.delimiter)
-            == query_model
-        )
+        assert build_query_model(self.query_with_multiple_delimiters, self.delimiter) == query_model

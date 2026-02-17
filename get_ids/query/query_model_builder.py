@@ -20,9 +20,7 @@ def build_query_model(query: str, delimiter: str) -> QueryModel:
         book_title_minus_subtitle=book_title_minus_subtitle,
         book_title_and_author_name_search_url=_build_search_url_from_query(query),
         book_title_search_url=_build_search_url_from_query(book_title),
-        book_title_minus_subtitle_search_url=_build_search_url_from_query(
-            book_title_minus_subtitle
-        ),
+        book_title_minus_subtitle_search_url=_build_search_url_from_query(book_title_minus_subtitle),
     )
 
 

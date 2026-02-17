@@ -52,9 +52,7 @@ def run():
     query_models = [build_query_model(query) for query in queries]  # This can throw
 
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-        futures = (
-            executor.submit(match_handler, query_model) for query_model in query_models
-        )
+        futures = (executor.submit(match_handler, query_model) for query_model in query_models)
         for future in as_completed(futures):
             result = future.result()
 

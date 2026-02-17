@@ -1,12 +1,16 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Union
 
-from get_ids.config.config import (author_name_similarity_percentage,
-                                   book_title_similarity_percentage,
-                                   input_file_delimiter,
-                                   matches_directory_path, matches_filename,
-                                   no_matches_directory_path,
-                                   no_matches_filename, path_to_input_file)
+from get_ids.config.config import (
+    author_name_similarity_percentage,
+    book_title_similarity_percentage,
+    input_file_delimiter,
+    matches_directory_path,
+    matches_filename,
+    no_matches_directory_path,
+    no_matches_filename,
+    path_to_input_file,
+)
 from get_ids.models.query_model import QueryModel
 from get_ids.models.result_model import ResultModel
 from get_ids.network.network import get
@@ -51,9 +55,7 @@ if __name__ == "__main__":
     query_models = [build_query_model(query, input_file_delimiter) for query in queries]
 
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-        futures = (
-            executor.submit(match_handler, query_model) for query_model in query_models
-        )
+        futures = (executor.submit(match_handler, query_model) for query_model in query_models)
         for future in as_completed(futures):
             result = future.result()
             if isinstance(result, ResultModel):

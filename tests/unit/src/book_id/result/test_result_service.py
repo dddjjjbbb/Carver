@@ -10,9 +10,7 @@ class TestResultService:
         self.result_service_empty = ResultService(no_result)
 
         self.href = "/book/show/50144.Kitchen?from_search=true&from_srp=true&qid=JBRJrWZAoO&rank=2"
-        self.author_name_with_goodreads_author_parenthesis = (
-            "Banana Yoshimoto (Goodreads Author)"
-        )
+        self.author_name_with_goodreads_author_parenthesis = "Banana Yoshimoto (Goodreads Author)"
         self.author_name_without_goodreads_author_parenthesis = "Banana Yoshimoto"
 
     def test_get_results_should_return_length_of_3(self):
@@ -45,21 +43,13 @@ class TestResultService:
     def test_clean_author_name_should_remove_goodreads_author_parenthesis_where_present(
         self,
     ):
-        assert (
-            self.result_service._clean_author_name(
-                self.author_name_with_goodreads_author_parenthesis
-            )
-            == "Banana Yoshimoto"
-        )
+        assert self.result_service._clean_author_name(self.author_name_with_goodreads_author_parenthesis) == "Banana Yoshimoto"
 
     def test_clean_author_name_should_return_goodreads_author_where_goodreads_author_parenthesis_is_not_present(
         self,
     ):
         assert (
-            self.result_service._clean_author_name(
-                self.author_name_without_goodreads_author_parenthesis
-            )
-            == "Banana Yoshimoto"
+            self.result_service._clean_author_name(self.author_name_without_goodreads_author_parenthesis) == "Banana Yoshimoto"
         )
 
     def test_clean_author_name_should_return_none_where_author_name_is_none(self):

@@ -25,14 +25,10 @@ class TestResultMatchService:
                 author_name="Daniel Rothenbühler",
                 book_id="24105853-der-verschollene-amerika-von-franz-kafka",
             ),
-            ResultModel(
-                book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"
-            ),
+            ResultModel(book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"),
         ]
 
-        self.kafka_result_match = ResultModel(
-            book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"
-        )
+        self.kafka_result_match = ResultModel(book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika")
 
         self.empty_list = []
 
@@ -44,7 +40,4 @@ class TestResultMatchService:
     def test_get_match_returns_a_match_where_book_title_and_author_name_match_query_exactly(
         self,
     ):
-        assert (
-            get_match(self.kafka_query_model, self.kafka_result_models, 1.0, 1.0)
-            == self.kafka_result_match
-        )
+        assert get_match(self.kafka_query_model, self.kafka_result_models, 1.0, 1.0) == self.kafka_result_match

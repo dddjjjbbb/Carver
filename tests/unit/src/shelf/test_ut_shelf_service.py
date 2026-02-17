@@ -1,8 +1,7 @@
 from data.empty import empty_soup
 
 from src.shelf.shelf_service import ShelfService
-from tests.integration.src.shelf.data.all_the_pretty_horses_shelves import \
-    all_the_pretty_horses_shelves_soup
+from tests.integration.src.shelf.data.all_the_pretty_horses_shelves import all_the_pretty_horses_shelves_soup
 
 
 class TestBookService:

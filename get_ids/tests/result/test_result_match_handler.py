@@ -1,8 +1,6 @@
 from get_ids.models.query_model import QueryModel
 from get_ids.models.result_model import ResultModel
-from get_ids.result.result_match_handler import (_is_input_similar,
-                                                 _is_results_equal_to_one,
-                                                 get_match)
+from get_ids.result.result_match_handler import _is_input_similar, _is_results_equal_to_one, get_match
 
 
 class TestResultMatchHandler:
@@ -35,14 +33,10 @@ class TestResultMatchHandler:
                 author_name="Daniel Rothenbühler",
                 book_id="24105853-der-verschollene-amerika-von-franz-kafka",
             ),
-            ResultModel(
-                book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"
-            ),
+            ResultModel(book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"),
         ]
 
-        self.kafka_result_match = ResultModel(
-            book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika"
-        )
+        self.kafka_result_match = ResultModel(book_title="Amerika", author_name="Franz Kafka", book_id="22911.Amerika")
 
         self.empty_list = []
 
@@ -65,12 +59,7 @@ class TestResultMatchHandler:
     def test_ut_is_input_similar_returns_true_where_similarity_percentage_is_set_to_a_low_level_of_permissiveness(
         self,
     ):
-        assert (
-            _is_input_similar(
-                "The Complete Plays", "The Complete Plays: Sophocles", 0.75
-            )
-            is True
-        )
+        assert _is_input_similar("The Complete Plays", "The Complete Plays: Sophocles", 0.75) is True
 
     def test_ut_is_input_similar_returns_true_where_similarity_percentage_is_set_to_a_high_level_of_permissiveness(
         self,
@@ -92,7 +81,4 @@ class TestResultMatchHandler:
     def test_it_get_match_returns_a_match_where_book_title_and_author_name_match_query_exactly(
         self,
     ):
-        assert (
-            get_match(self.kafka_query_model, self.kafka_result_models, 1.0, 1.0)
-            == self.kafka_result_match
-        )
+        assert get_match(self.kafka_query_model, self.kafka_result_models, 1.0, 1.0) == self.kafka_result_match

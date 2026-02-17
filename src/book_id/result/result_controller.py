@@ -2,8 +2,7 @@ import bs4
 
 from src.book_id.result.result_model import ResultModel
 from src.book_id.result.result_service import ResultService
-from src.common.errors.errors import (return_none_for_index_error,
-                                      return_none_for_type_error)
+from src.common.errors.errors import return_none_for_index_error, return_none_for_type_error
 
 
 @return_none_for_type_error
