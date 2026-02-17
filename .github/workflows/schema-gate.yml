@@ -1,0 +1,71 @@
+name: Schema Gate
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  schema-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run schema gate tests
+        id: schema_test
+        continue-on-error: true
+        run: python -m pytest tests/smoke/test_schema_gate.py -v --tb=long 2>&1 | tee schema_results.txt
+      - name: Open issue on failure
+        if: steps.schema_test.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const results = fs.readFileSync('schema_results.txt', 'utf8');
+            const failedLines = results.split('\n').filter(l => l.includes('FAILED'));
+            const body = [
+              '## Schema Gate Failure',
+              '',
+              'The weekly schema gate detected changes in the Goodreads HTML structure.',
+              'One or more CSS selectors or regex patterns no longer match the live page.',
+              '',
+              '### Failed checks',
+              '```',
+              failedLines.join('\n'),
+              '```',
+              '',
+              '### What to do',
+              '1. Visit the test URL in a browser',
+              '2. Inspect the elements that failed',
+              '3. Update the selectors in `src/book/book_service.py`',
+              '4. Update `schema/expected_selectors.json` to match',
+              '5. Update test fixtures in `tests/unit/src/book/data/`',
+              '',
+              '### Full output',
+              '<details>',
+              '<summary>Test output</summary>',
+              '',
+              '```',
+              results.slice(-3000),
+              '```',
+              '</details>',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Schema gate failure: Goodreads HTML changed`,
+              body: body,
+              labels: ['schema-drift']
+            });

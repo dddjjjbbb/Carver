@@ -1,0 +1,16 @@
+[project]
+name = "carver"
+requires-python = ">=3.10"
+
+[tool.black]
+line-length = 127
+extend-exclude = '\.venv.*'
+
+[tool.isort]
+profile = "black"
+line_length = 127
+skip = [".venv", ".venv-310"]
+
+[tool.flake8]
+max-line-length = 127
+max-complexity = 10

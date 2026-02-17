@@ -1,0 +1,67 @@
+{
+  "book_page": {
+    "url": "https://www.goodreads.com/book/show/587393.The_Lost_Scrapbook",
+    "selectors": {
+      "title": {
+        "tag": "h1",
+        "attrs": {"class": "Text__title1"},
+        "description": "Book title heading"
+      },
+      "author_link": {
+        "tag": "a",
+        "attrs": {"class": "ContributorLink"},
+        "description": "Author name link"
+      },
+      "author_name": {
+        "tag": "span",
+        "attrs": {"class": "ContributorLink__name"},
+        "description": "Author name text within ContributorLink"
+      },
+      "pages_format": {
+        "tag": "p",
+        "attrs": {"data-testid": "pagesFormat"},
+        "description": "Page count and format info"
+      },
+      "publication_info": {
+        "tag": "p",
+        "attrs": {"data-testid": "publicationInfo"},
+        "description": "Publication date info"
+      },
+      "genres": {
+        "tag": "a",
+        "attrs": {"class": "Button Button--tag Button--medium"},
+        "description": "Genre tag buttons"
+      },
+      "reviews_count": {
+        "tag": "span",
+        "attrs": {"data-testid": "reviewsCount"},
+        "description": "Total review count"
+      },
+      "ratings_count": {
+        "tag": "span",
+        "attrs": {"data-testid": "ratingsCount"},
+        "description": "Total rating count"
+      },
+      "average_rating": {
+        "tag": "div",
+        "attrs": {"class": "RatingStatistics__rating"},
+        "description": "Average star rating value"
+      },
+      "json_ld": {
+        "tag": "script",
+        "attrs": {"type": "application/ld+json"},
+        "description": "Structured data containing ISBN and metadata"
+      }
+    },
+    "patterns": {
+      "rating_distribution": {
+        "regex": "\\[(\\d+),(\\d+),(\\d+),(\\d+),(\\d+)\\]",
+        "description": "Array of 5 integers representing star rating counts"
+      },
+      "shelves_url": {
+        "regex": "\"shelvesUrl\":\"(https://www.goodreads.com/work/shelves/.+?)\"",
+        "description": "Shelves URL in page script data"
+      }
+    }
+  }
+}
