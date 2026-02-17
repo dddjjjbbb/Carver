@@ -3,8 +3,7 @@ from typing import Dict
 
 import bs4
 
-from src.common.errors.errors import (return_none_for_index_error,
-                                      return_none_for_type_error)
+from src.common.errors.errors import return_none_for_index_error, return_none_for_type_error
 from src.common.network.network import get
 from src.common.parser.parser import parse
 from src.list.list_config import *
@@ -17,7 +16,6 @@ class ListService:
 
     @return_none_for_type_error
     def get_lists(self) -> [Dict]:
-        # TODO: This method needs an integration test!
         lists = []
 
         response = get(self.lists_url)
@@ -29,12 +27,8 @@ class ListService:
 
             list_name = ListService._get_list_name_from_list_details(list_details)
             list_votes = ListService._get_list_votes_from_list_details(list_details)
-            book_rank_in_list = ListService._get_book_rank_in_list_from_list_details(
-                list_details
-            )
-            number_of_books_on_list = (
-                ListService._get_number_of_books_on_list_from_list_details(list_details)
-            )
+            book_rank_in_list = ListService._get_book_rank_in_list_from_list_details(list_details)
+            number_of_books_on_list = ListService._get_number_of_books_on_list_from_list_details(list_details)
 
             lists.append(
                 {
@@ -52,9 +46,7 @@ class ListService:
     def _get_paginated_list_urls(soup: bs4.BeautifulSoup, lists_url: str) -> [str]:
         paginated_list_urls = [lists_url]
         soup.find_all("a", href=re.compile("/list/book/"))
-        amount = len(
-            soup.find_all("a", href=lambda href: href and "/list/book/" in href)[:-1]
-        )
+        amount = len(soup.find_all("a", href=lambda href: href and "/list/book/" in href)[:-1])
         if amount:
             for i in range(2, amount + 2):
                 paginated_list_urls.append(f"{lists_url}{'?page='}{i}")
@@ -102,5 +94,4 @@ class ListService:
 
     @staticmethod
     def _sort_by_list_votes(lists: [Dict]) -> [Dict]:
-        # This mimics the UI on Goodreads
         return sorted(lists, key=lambda k: k["listVotes"], reverse=True)

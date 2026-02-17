@@ -1,5 +1,6 @@
 import argparse
 import json
+import logging
 import os
 import re
 import time
@@ -12,11 +13,13 @@ import geckodriver_autoinstaller
 import pandas as pd
 from chromedriver_py import binary_path
 from selenium import webdriver
-from selenium.common.exceptions import (ElementClickInterceptedException,
-                                        ElementNotInteractableException,
-                                        ElementNotVisibleException,
-                                        NoSuchElementException,
-                                        StaleElementReferenceException)
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    ElementNotInteractableException,
+    ElementNotVisibleException,
+    NoSuchElementException,
+    StaleElementReferenceException,
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
@@ -83,11 +86,7 @@ def get_text(node):
         for child in node.find_all("span", {"class": "readable"})[0].children:
             if child.name == "span" and "style" not in child:
                 display_text = child.text
-            if (
-                child.name == "span"
-                and "style" in child
-                and child["style"] == "display:none"
-            ):
+            if child.name == "span" and "style" in child and child["style"] == "display:none":
                 full_text = child.text
 
     if full_text:
@@ -97,10 +96,7 @@ def get_text(node):
 
 
 def get_num_likes(node):
-    if (
-        node.find("span", {"class": "likesCount"})
-        and len(node.find("span", {"class": "likesCount"})) > 0
-    ):
+    if node.find("span", {"class": "likesCount"}) and len(node.find("span", {"class": "likesCount"})) > 0:
         likes = node.find("span", {"class": "likesCount"}).text
         if "likes" in likes:
             return int(likes.split()[0])
@@ -124,13 +120,11 @@ def get_id(bookid):
 def scrape_reviews_on_current_page(driver, url, book_id, sort_order):
     reviews = []
 
-    # Pull the page source, load into BeautifulSoup, and find all review nodes.
     source = driver.page_source
     soup = bs4.BeautifulSoup(source, "lxml")
     nodes = soup.find_all("div", {"class": "review"})
     book_title = soup.find(id="bookTitle").text.strip()
 
-    # Iterate through and parse the reviews.
     for node in nodes:
         review_id = re.search("[0-9]+", node["id"]).group(0)
         reviews.append(
@@ -156,9 +150,7 @@ def scrape_reviews_on_current_page(driver, url, book_id, sort_order):
 
 def check_for_duplicates(reviews):
     review_ids = [r["review_id"] for r in reviews]
-    num_duplicates = len(
-        [_id for _id, _count in Counter(review_ids).items() if _count > 1]
-    )
+    num_duplicates = len([_id for _id, _count in Counter(review_ids).items() if _count > 1])
     return num_duplicates
 
 
@@ -171,7 +163,6 @@ def get_reviews_first_ten_pages(driver, book_id, sort_order):
 
     try:
         time.sleep(4)
-        # Re-order the reviews so that we scrape the newest or oldest reviews instead of the default.
         if sort_order != "default":
             switch_reviews_mode(driver, book_id, sort_order)
             time.sleep(2)
@@ -181,21 +172,16 @@ def get_reviews_first_ten_pages(driver, book_id, sort_order):
             select.select_by_value("en")
             time.sleep(4)
 
-        # Scrape the first page of reviews.
         reviews = scrape_reviews_on_current_page(driver, url, book_id, sort_order)
-        print("Scraped page 1")
-        # GoodReads will only load the first 10 pages of reviews.
-        # Click through each of the following nine pages and scrape each page.
+        logging.info("Scraped page 1")
         page_counter = 2
         while page_counter <= 10:
             try:
                 if driver.find_element_by_link_text(str(page_counter)):
                     driver.find_element_by_link_text(str(page_counter)).click()
                     time.sleep(3)
-                    reviews += scrape_reviews_on_current_page(
-                        driver, url, book_id, sort_order
-                    )
-                    print(f"Scraped page {page_counter}")
+                    reviews += scrape_reviews_on_current_page(driver, url, book_id, sort_order)
+                    logging.info(f"Scraped page {page_counter}")
                     page_counter += 1
                 else:
                     return reviews
@@ -214,19 +200,17 @@ def get_reviews_first_ten_pages(driver, book_id, sort_order):
                             driver.find_element(By.CLASS_NAME, "next_page").click()
                             continue
                     except NoSuchElementException:
-                        print("'next' button not found either")
+                        logging.warning("'next' button not found either")
                         return reviews
 
             except ElementNotVisibleException:
-                print(
-                    "ERROR ElementNotVisibleException: Pop-up detected, reloading the page."
-                )
+                logging.warning("ElementNotVisibleException: Pop-up detected, reloading the page.")
                 reviews = get_reviews_first_ten_pages(driver, book_id, sort_order)
                 return reviews
 
             except ElementClickInterceptedException:
-                print(
-                    f"🚨 ElementClickInterceptedException (Likely a pop-up)🚨\n🔄 Refreshing Goodreads site and skipping problem page {page_counter}🔄"
+                logging.warning(
+                    f"ElementClickInterceptedException (likely a pop-up), refreshing and skipping page {page_counter}"
                 )
                 driver.get(url)
                 time.sleep(3)
@@ -234,34 +218,26 @@ def get_reviews_first_ten_pages(driver, book_id, sort_order):
                 continue
 
             except StaleElementReferenceException:
-                print(
-                    "ERROR: StaleElementReferenceException\nRefreshing Goodreads site and skipping problem page {page_counter} "
-                )
+                logging.warning(f"StaleElementReferenceException, refreshing and skipping page {page_counter}")
                 driver.get(url)
                 time.sleep(3)
                 page_counter += 1
                 continue
 
     except ElementClickInterceptedException:
-        print(
-            f"🚨 ElementClickInterceptedException (Likely a pop-up)🚨\n🔄 Refreshing Goodreads site and rescraping book🔄"
-        )
+        logging.warning("ElementClickInterceptedException (likely a pop-up), refreshing and rescraping book")
         driver.get(url)
         time.sleep(3)
         reviews = get_reviews_first_ten_pages(driver, book_id, sort_order)
         return reviews
 
     except ElementNotInteractableException:
-        print(
-            "🚨 ElementNotInteractableException🚨 \n🔄 Refreshing Goodreads site and rescraping book🔄"
-        )
+        logging.warning("ElementNotInteractableException, refreshing and rescraping book")
         reviews = get_reviews_first_ten_pages(driver, book_id, sort_order)
         return reviews
 
     if check_for_duplicates(reviews) >= 30:
-        print(
-            f"ERROR: {check_for_duplicates(reviews)} duplicates found! Re-scraping this book."
-        )
+        logging.warning(f"{check_for_duplicates(reviews)} duplicates found, re-scraping this book")
         reviews = get_reviews_first_ten_pages(driver, book_id, sort_order)
         return reviews
     else:
@@ -273,11 +249,7 @@ def get_reviews_first_ten_pages(driver, book_id, sort_order):
 def condense_reviews(reviews_directory_path):
     reviews = []
     for file_name in os.listdir(reviews_directory_path):
-        if (
-            file_name.endswith(".json")
-            and not file_name.startswith(".")
-            and file_name != "all_reviews.json"
-        ):
+        if file_name.endswith(".json") and not file_name.startswith(".") and file_name != "all_reviews.json":
             _reviews = json.load(open(reviews_directory_path + "/" + file_name, "r"))
             reviews += _reviews
     return reviews
@@ -288,9 +260,7 @@ def run():
     script_name = os.path.basename(__file__)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-s", "--service", type=str, choices=["book", "book_id", "review"]
-    )
+    parser.add_argument("-s", "--service", type=str, choices=["book", "book_id", "review"])
     parser.add_argument("--book_ids_path", type=str)
     parser.add_argument("--output_directory_path", type=str)
     parser.add_argument("--browser", type=str)
@@ -312,61 +282,32 @@ def run():
         for file_name in os.listdir(args.output_directory_path)
         if file_name.endswith(".json") and not file_name.startswith("all_reviews")
     ]
-    books_to_scrape = [
-        book_id for book_id in book_ids if book_id not in books_already_scraped
-    ]
+    books_to_scrape = [book_id for book_id in book_ids if book_id not in books_already_scraped]
     condensed_reviews_path = args.output_directory_path + "/all_reviews"
-
-    # Set up driver
 
     if args.browser.lower() == "chrome":
         driver = webdriver.Chrome(executable_path=binary_path)
-        # driver = webdriver.Chrome(args.web_driver_path)
     elif args.browser.lower() == "firefox":
         geckodriver_autoinstaller.install()
         driver = webdriver.Firefox()
     else:
-        print("Please select a web browser: Chrome or Firefox")
+        logging.error("Please select a web browser: Chrome or Firefox")
 
     for i, book_id in enumerate(books_to_scrape):
         try:
-            print(
-                str(datetime.now())
-                + " "
-                + script_name
-                + ": Scraping "
-                + book_id
-                + "..."
-            )
-            print(
-                str(datetime.now())
-                + " "
-                + script_name
-                + ": #"
-                + str(i + 1 + len(books_already_scraped))
-                + " out of "
-                + str(len(book_ids))
-                + " books"
-            )
+            logging.info(f"Scraping {book_id}...")
+            logging.info(f"#{i + 1 + len(books_already_scraped)} out of {len(book_ids)} books")
 
             reviews = get_reviews_first_ten_pages(driver, book_id, args.sort_order)
 
             if reviews:
-                print(
-                    str(datetime.now())
-                    + " "
-                    + script_name
-                    + ": Scraped ✨"
-                    + str(len(reviews))
-                    + "✨ reviews for "
-                    + book_id
-                )
+                logging.info(f"Scraped {len(reviews)} reviews for {book_id}")
                 json.dump(
                     reviews,
                     open(args.output_directory_path + "/" + book_id + ".json", "w"),
                 )
 
-            print("=============================")
+            logging.info("-----------------------------")
 
         except HTTPError:
             pass
@@ -383,11 +324,6 @@ def run():
         review_df = pd.read_json(f"{condensed_reviews_path}.json")
         review_df.to_csv(f"{condensed_reviews_path}.csv", index=False, encoding="utf-8")
 
-    print(
-        str(datetime.now())
-        + " "
-        + script_name
-        + f":\n\n🎉 Success! All book reviews scraped. 🎉\n\nGoodreads review files have been output to /{args.output_directory_path}\nGoodreads scraping run time = ⏰ "
-        + str(datetime.now() - start_time)
-        + " ⏰"
+    logging.info(
+        f"All book reviews scraped. Output to /{args.output_directory_path}. " f"Run time: {datetime.now() - start_time}"
     )

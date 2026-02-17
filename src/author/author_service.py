@@ -1,3 +1,4 @@
+import logging
 from functools import reduce
 from typing import Dict, List, Optional
 
@@ -18,7 +19,7 @@ def deep_get(dictionary, keys, default=None):
 class AuthorService:
     def __init__(self, author_details_json: [Dict]):
         self.author_details_json = author_details_json
-        print(self.author_details_json)
+        logging.debug(self.author_details_json)
 
     def get_birth_full_name(self) -> Optional[str]:
         """
@@ -34,9 +35,7 @@ class AuthorService:
     @return_none_for_attribute_error
     def get_birth_full_name_in_native_language(self) -> Optional[str]:
         #  P1559
-        result = deep_get(
-            self.author_details_json, "birthFullNameInNativeLanguageLabel.value"
-        )
+        result = deep_get(self.author_details_json, "birthFullNameInNativeLanguageLabel.value")
         if result:
             return "".join(result).title()
         return ""
@@ -109,15 +108,11 @@ class AuthorService:
         return ""
 
     @staticmethod
-    def _calculate_age_at_death(
-        date_of_death: str, date_of_birth: str
-    ) -> Optional[int]:
+    def _calculate_age_at_death(date_of_death: str, date_of_birth: str) -> Optional[int]:
         if date_of_death:
             date_of_death_datetime_object = parser.parse(date_of_death).date()
             date_of_birth_datetime_object = parser.parse(date_of_birth).date()
-            return relativedelta(
-                date_of_death_datetime_object, date_of_birth_datetime_object
-            ).years
+            return relativedelta(date_of_death_datetime_object, date_of_birth_datetime_object).years
         return None
 
     @return_none_for_attribute_error

@@ -1,5 +1,3 @@
-# TODO Figure out why this service is failing
-
 from typing import Dict
 
 import bs4
@@ -12,17 +10,13 @@ class ShelfService:
         self.soup = soup
 
     def get_shelves(self) -> [Dict]:
-        #  The amount of results returned is dependent on `config_number_of_shelf_results`
-
         shelves = []
 
         for shelf in ShelfService._get_unformatted_shelves(self):
             name = ShelfService._get_shelf_name(shelf)
             count = ShelfService._get_shelf_count(shelf)
 
-            shelves.append(
-                {"shelfName": name, "AmountOfUsersWhoAddedBookToShelf": count}
-            )
+            shelves.append({"shelfName": name, "AmountOfUsersWhoAddedBookToShelf": count})
 
         return shelves[:config_number_of_shelf_results]
 

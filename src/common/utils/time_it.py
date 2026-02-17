@@ -1,6 +1,5 @@
-# https://zyxue.github.io/2017/09/21/python-timeit-decorator.html
-
 import datetime
+import logging
 import time
 from functools import wraps
 from typing import Any, Callable
@@ -15,7 +14,7 @@ def timeit(func: Callable[..., Any]) -> Callable[..., Any]:
         start_time = time.time()
         result = func(*args, **kwargs)
         elapsed_time = datetime.timedelta(seconds=(time.time() - start_time))
-        print(f"time spent on {func.__name__}: {elapsed_time}")
+        logging.info(f"time spent on {func.__name__}: {elapsed_time}")
         return result
 
     return timed_func

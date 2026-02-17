@@ -46,11 +46,7 @@ def _filter_queries_equal_to_none(queries: list) -> list:
 
 
 def get_books_already_scraped(output_directory_path: str) -> [str]:
-    return [
-        f.stem
-        for f in Path(output_directory_path).rglob("*.json")
-        if not f.stem.startswith("all_books")
-    ]
+    return [f.stem for f in Path(output_directory_path).rglob("*.json") if not f.stem.startswith("all_books")]
 
 
 def get_books_to_scrape(book_ids: [str], books_already_scraped: [str]) -> [str]:
@@ -58,11 +54,7 @@ def get_books_to_scrape(book_ids: [str], books_already_scraped: [str]) -> [str]:
 
 
 def _is_file_valid(file_name: str):
-    if (
-        file_name.endswith(".json")
-        and not file_name.startswith(".")
-        and file_name != "all_books.json"
-    ):
+    if file_name.endswith(".json") and not file_name.startswith(".") and file_name != "all_books.json":
         return True
     return False
 
@@ -78,7 +70,5 @@ def aggregate_books(output_directory_path: str) -> [Dict]:
 
         if f:
             books.append(f)
-
-            # We should probably write out all those books that return null here.
 
     return books
