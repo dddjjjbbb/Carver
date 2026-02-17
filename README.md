@@ -1,6 +1,6 @@
 # Carver
 
-[![CI](https://github.com/dddjjjbbb/Carver/actions/workflows/python-app.yml/badge.svg)](https://github.com/dddjjjbbb/Carver/actions/workflows/python-app.yml)
+[![CI](https://github.com/dddjjjbbb/Lish/actions/workflows/python-app.yml/badge.svg)](https://github.com/dddjjjbbb/Lish/actions/workflows/python-app.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 
 <img src="logo.png" alt="Project Logo" width="300"/>
