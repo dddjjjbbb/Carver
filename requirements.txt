@@ -8,7 +8,7 @@ black==23.12.0
 bs4==0.0.1
 certifi==2023.11.17
 charset-normalizer==3.3.2
-chromedriver-py==120.0.6099.109
+chromedriver-py
 click==8.1.7
 coverage==7.3.4
 dataclasses-json==0.6.3

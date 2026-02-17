@@ -3,8 +3,7 @@ from data.all_the_pretty_horses import all_the_pretty_horses_soup
 from data.empty import empty_soup
 
 from src.book.book_service import GoodReadsBookParser
-from tests.unit.src.book.data.cronopios_and_famas import \
-    cronopios_and_famas_soup
+from tests.unit.src.book.data.cronopios_and_famas import cronopios_and_famas_soup
 
 
 class TestBookService:
@@ -19,12 +18,7 @@ class TestBookService:
         assert self.goodreads_book_parser.get_numeric_id(self.book_id_title) == 469571
 
     def test_get_numeric_book_id_where_no_decimal_is_present(self):
-        assert (
-            self.goodreads_book_parser.get_numeric_id(
-                self.book_id_title_without_decimal
-            )
-            == 13079982
-        )
+        assert self.goodreads_book_parser.get_numeric_id(self.book_id_title_without_decimal) == 13079982
 
     def test_get_book_title(self):
         assert self.goodreads_book_parser.get_title() == "All the Pretty Horses"
@@ -39,36 +33,28 @@ class TestBookService:
         assert self.goodreads_book_parser_empty.get_series_name() is None
 
     def test_get_book_series_url(self):
-        assert (
-            self.goodreads_book_parser.get_series_url()
-            == "https://www.goodreads.com/series/44780-the-border-trilogy"
-        )
+        assert self.goodreads_book_parser.get_series_url() == "https://www.goodreads.com/series/44780-the-border-trilogy"
 
     def test_get_book_series_url_should_return_none_where_soup_find_fails(self):
         assert self.goodreads_book_parser_empty.get_series_url() is None
 
-    def test_get_isbn(self):
-        assert self.goodreads_book_parser.get_isbn() == 9780679744
+    def test_get_isbn_should_return_none_where_json_ld_has_isbn13(self):
+        assert self.goodreads_book_parser.get_isbn() is None
 
-    def test_get_isbn_should_return_none_where_soup_findall_fails(self):
-        assert self.goodreads_book_parser_empty.get_isbn() == 1
+    def test_get_isbn_should_return_none_where_soup_has_no_json_ld(self):
+        assert self.goodreads_book_parser_empty.get_isbn() is None
 
     def test_get_isbn13(self):
         assert self.goodreads_book_parser.get_isbn13() == 9780679744399
 
-    def test_get_isbn13_should_return_none_where_soup_findall_fails(self):
-        assert self.goodreads_book_parser_empty.get_isbn() == 1
+    def test_get_isbn13_should_return_none_where_soup_has_no_json_ld(self):
+        assert self.goodreads_book_parser_empty.get_isbn13() is None
 
     def test_get_lists_url(self):
-        assert (
-            self.goodreads_book_parser.get_lists_url(self.book_id_title)
-            == "https://www.goodreads.com/list/book/469571"
-        )
+        assert self.goodreads_book_parser.get_lists_url(self.book_id_title) == "https://www.goodreads.com/list/book/469571"
 
     def test_get_lists_url_should_return_none_where_soup_find_fails(self):
-        assert (
-            self.goodreads_book_parser_empty.get_lists_url(self.book_id_title) is None
-        )
+        assert self.goodreads_book_parser_empty.get_lists_url(self.book_id_title) is None
 
     def test_get_year_of_publication(self):
         assert self.goodreads_book_parser.get_year_of_publication() == 1992
@@ -208,10 +194,7 @@ class TestBookService:
         assert self.goodreads_book_parser_empty.get_primary_genre() is None
 
     def test_get_lists_url(self):
-        assert (
-            self.goodreads_book_parser.get_lists_url(self.book_id_title)
-            == "https://www.goodreads.com/list/book/469571"
-        )
+        assert self.goodreads_book_parser.get_lists_url(self.book_id_title) == "https://www.goodreads.com/list/book/469571"
 
     def test_get_lists_url_should_return_none_where_soup_find_fails(self):
         assert self.goodreads_book_parser_empty.get_lists_url(None) is None

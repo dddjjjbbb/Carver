@@ -1,3 +1,4 @@
+import json
 import logging
 import math
 import re
@@ -9,9 +10,7 @@ from nameparser.parser import HumanName
 
 from src.author.author_controller import build_author_model
 from src.book.book_config import *
-from src.common.errors.errors import (return_none_for_attribute_error,
-                                      return_none_for_index_error,
-                                      return_none_for_type_error)
+from src.common.errors.errors import return_none_for_attribute_error, return_none_for_index_error, return_none_for_type_error
 from src.common.formatters.json.to_json import to_json
 from src.common.network.network import get
 from src.common.parser.parser import parse
@@ -21,7 +20,7 @@ from src.common.utils.string_operators import split_on_delimiter
 from ..common.errors.errors import return_none_for_value_error
 from .book_model import BookModel, GoodReadsBook
 
-d = gender.Detector()
+gender_detector = gender.Detector()
 
 
 class BookService:
@@ -33,30 +32,23 @@ class BookService:
         BASE_URL = "https://www.goodreads.com/book/show/"
         url = f"{BASE_URL}{self.goodreads_book.id}"
 
-        # BOOK
         book_response = get(url)
         book_soup = parse(book_response)
         good_reads_book_parser = GoodReadsBookParser(book_soup)
 
         year_of_publication = good_reads_book_parser.get_year_of_publication()
-        author_full_name = (
-            good_reads_book_parser.get_author_full_name()
-            if config_author_full_name is True
-            else None
-        )
+        author_full_name = good_reads_book_parser.get_author_full_name() if config_author_full_name is True else None
         if author_full_name:
-            print(author_full_name)
+            logging.info(f"Author: {author_full_name}")
         else:
-            print("COULD NOT GET AUTHOR")
+            logging.warning("Could not get author")
         genres = good_reads_book_parser.get_genres()
         title = good_reads_book_parser.get_title()
-
-        # FIGURE OUT WHAT IS WRONG HERE!
 
         try:
             author_model = build_author_model(author_full_name)
         except Exception as e:
-            print(f"AUTHOR MODEL EXCEPTION: {e}")
+            logging.error(f"Author model exception: {e}")
             author_model = None
 
         try:
@@ -64,72 +56,44 @@ class BookService:
             gender = author_model.gender
         except AttributeError:
             country_of_citizenship = ""
-            gender = d.get_gender(
-                good_reads_book_parser.get_author_first_name(author_full_name).title()
-            )
+            gender = gender_detector.get_gender(good_reads_book_parser.get_author_first_name(author_full_name).title())
 
         book_model = BookModel(
             title=good_reads_book_parser.get_title() if config_title is True else None,
             author_full_name=author_full_name,
             isbn=good_reads_book_parser.get_isbn() if config_isbn is True else None,
-            isbn13=good_reads_book_parser.get_isbn13()
-            if config_isbn13 is True
-            else None,
-            author_last_name=good_reads_book_parser.get_author_last_name(
-                author_full_name
-            )
+            isbn13=good_reads_book_parser.get_isbn13() if config_isbn13 is True else None,
+            author_last_name=good_reads_book_parser.get_author_last_name(author_full_name)
             if config_author_last_name is True
             else None,
-            author_first_name=good_reads_book_parser.get_author_first_name(
-                author_full_name
-            )
+            author_first_name=good_reads_book_parser.get_author_first_name(author_full_name)
             if config_author_first_name is True
             else None,
             year_of_publication=good_reads_book_parser.get_year_of_publication()
             if config_year_of_publication is True
             else None,
-            century_of_publication=good_reads_book_parser.get_century_of_publication(
-                year_of_publication
-            )
+            century_of_publication=good_reads_book_parser.get_century_of_publication(year_of_publication)
             if config_century_of_publication is True
             else None,
-            genre=good_reads_book_parser.get_primary_genre(genres)
-            if config_primary_genre is True
-            else None,
-            number_of_pages=good_reads_book_parser.get_number_of_pages()
-            if config_number_of_pages is True
-            else None,
-            average_rating=good_reads_book_parser.get_average_rating()
-            if config_average_rating is True
-            else None,
-            goodreads_url=good_reads_book_parser.construct_goodreads_url(
-                self.goodreads_book.id
-            )
+            genre=good_reads_book_parser.get_primary_genre(genres) if config_primary_genre is True else None,
+            number_of_pages=good_reads_book_parser.get_number_of_pages() if config_number_of_pages is True else None,
+            average_rating=good_reads_book_parser.get_average_rating() if config_average_rating is True else None,
+            goodreads_url=good_reads_book_parser.construct_goodreads_url(self.goodreads_book.id)
             if config_goodreads_url is True
             else None,
-            author_country_of_citizenship=country_of_citizenship
-            if country_of_citizenship is True
-            else None,
+            author_country_of_citizenship=country_of_citizenship if country_of_citizenship else None,
             author_gender=gender,
-            number_of_ratings=good_reads_book_parser.get_number_of_ratings()
-            if config_number_of_ratings is True
-            else None,
-            number_of_reviews=good_reads_book_parser.get_number_of_reviews()
-            if config_number_of_reviews is True
-            else None,
-            series_name=good_reads_book_parser.get_series_name()
-            if config_series_name is True
-            else None,
-            series_url=good_reads_book_parser.get_series_url()
-            if config_series_url is True
-            else None,
+            number_of_ratings=good_reads_book_parser.get_number_of_ratings() if config_number_of_ratings is True else None,
+            number_of_reviews=good_reads_book_parser.get_number_of_reviews() if config_number_of_reviews is True else None,
+            series_name=good_reads_book_parser.get_series_name() if config_series_name is True else None,
+            series_url=good_reads_book_parser.get_series_url() if config_series_url is True else None,
             shelves="" if config_shelves is True else None,
             title_id=self.goodreads_book.id if config_title_id is True else None,
             lists=None,
-            numeric_id=good_reads_book_parser.get_numeric_id(self.goodreads_book.id)
-            if config_numeric_id is True
+            numeric_id=good_reads_book_parser.get_numeric_id(self.goodreads_book.id) if config_numeric_id is True else None,
+            rating_distribution=good_reads_book_parser.get_rating_distribution()
+            if config_rating_distribution is True
             else None,
-            rating_distribution=None if config_rating_distribution is True else None,
         )
 
         model = book_model
@@ -190,9 +154,7 @@ class GoodReadsBookParser:
 
     @return_none_for_attribute_error
     def get_year_of_publication(self) -> int:
-        year_of_publication = self.soup.find(
-            "p", attrs={"data-testid": "publicationInfo"}
-        ).string.strip()
+        year_of_publication = self.soup.find("p", attrs={"data-testid": "publicationInfo"}).string.strip()
         return int(re.search("([0-9]{3,4})", year_of_publication).group())
 
     @staticmethod
@@ -202,11 +164,7 @@ class GoodReadsBookParser:
 
     @return_none_for_attribute_error
     def get_genres(self) -> [str]:
-        # Button Button--tag-inline Button--small
-        # TODO: It might be nice build a list of dicts considering the votes here.
-        genres = self.soup.find_all(
-            "a", {"class": "Button Button--tag-inline Button--small"}
-        )
+        genres = self.soup.find_all("a", {"class": "Button Button--tag Button--medium"})
         return [a.text.strip() for a in genres]
 
     @staticmethod
@@ -234,22 +192,26 @@ class GoodReadsBookParser:
             uri = node.find("a")["href"]
             return uri
 
-    @return_none_for_index_error
+    def _get_json_ld(self) -> dict:
+        script = self.soup.find("script", type="application/ld+json")
+        if script and script.string:
+            try:
+                return json.loads(script.string)
+            except json.JSONDecodeError:
+                return {}
+        return {}
+
     def get_isbn(self) -> int:
-        isbn = re.search('("isbn":")([0-9]{10})', str(self.soup))
+        isbn_value = self._get_json_ld().get("isbn")
+        if isbn_value and len(str(isbn_value)) == 10:
+            return int(isbn_value)
+        return None
 
-        if isbn:
-            return int(isbn.group(2))
-        return 1
-
-    # @return_none_for_index_error
     def get_isbn13(self) -> int:
-        # (contentContainer">)([0-9]{13})
-        isbn13 = re.search(r'("isbn13":")([0-9]{13})', str(self.soup))
-
-        if isbn13:
-            return int(isbn13.group(2))
-        return 1
+        isbn_value = self._get_json_ld().get("isbn")
+        if isbn_value and len(str(isbn_value)) == 13:
+            return int(isbn_value)
+        return None
 
     def get_lists_url(self, book_id_title) -> str:
         list_url = "https://www.goodreads.com/list/book/"
@@ -287,9 +249,7 @@ class GoodReadsBookParser:
     @return_none_for_value_error
     @return_none_for_attribute_error
     def get_average_rating(self) -> Union[float, None]:
-        value = self.soup.find(
-            "div", {"class": "RatingStatistics__rating"}
-        ).text.strip()
+        value = self.soup.find("div", {"class": "RatingStatistics__rating"}).text.strip()
         f = float(value)
         return round(f, 2)
 
