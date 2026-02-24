@@ -3,7 +3,7 @@
 [![CI](https://github.com/dddjjjbbb/Carver/actions/workflows/python-app.yml/badge.svg)](https://github.com/dddjjjbbb/Carver/actions/workflows/python-app.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 
-<img src="logo.png" alt="Project Logo" width="300"/>
+<img src="logo.svg" alt="Project Logo" width="300"/>
 
 Want to pull reams of data for a large collection of books? Carver has you covered.
 With speed and accuracy, Carver aims to facilitate the generation of large data sets without use of the Goodreads API.
